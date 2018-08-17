@@ -5,19 +5,25 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Guerilla Dungeons</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="./guerilla.js" type="text/javascript"></script>
+	<script src="./guerrilla.js" type="text/javascript"></script>
 
 <style>
 .NA{
-	display:table;
+	display:block;
 }
 .JP{
 	display:none;
 }
 .group{
-	display:block;
+	display:table;
 }
 .schedule{
+	display:none;
+}
+.active{
+	display:none;
+}
+.next{
 	display:none;
 }
 </style>
@@ -28,9 +34,24 @@
 	</br>
 	<a href="#" onclick="switchRegion();">Switch Region</a>
 	</br>
-	<a href="#" onclick="switchMode();">Switch Mode</a>
+	<a href="#" onclick="pickMode('group');">By Group</a>
+	</br>
+	<a href="#" onclick="pickMode('schedule');">By Time</a>
+	</br>
+	<a href="#" onclick="pickMode('next');">By Countdown</a>
 	</br>
 	<div class="NA">
+		<table id="activeNA" class="active">
+			<tbody>
+				<tr>
+					<td>Time Remaining</td>
+					<td>Dungeon</td>
+				</tr>
+				<tr>
+					<td id="activeTimeNA"></td>
+					<td id="activeDungeonNA"></td>
+				</tr>
+		</table>
 		<table id="groupNA" class="group">
 			<tbody>
 				<tr>
@@ -53,9 +74,31 @@
 					<td>E</td>
 				</tr>
 		</table>
+		<table id="nextNA" class="next">
+			<tbody>
+				<tr>
+					<td>Time Until</td>
+					<td>Dungeon</td>
+				</tr>
+				<tr>
+					<td id="nextTimeNA"></td>
+					<td id="nextDungeonNA"></td>
+				</tr>
+		</table>
 	</div>
 
 	<div class="JP">
+		<table id="activeJP" class="active">
+			<tbody>
+				<tr>
+					<td>Time Remaining</td>
+					<td>Dungeon</td>
+				</tr>
+				<tr>
+					<td id="activeTimeJP"></td>
+					<td id="activeDungeonJP"></td>
+				</tr>
+		</table>
 		<table id="groupJP" class="group">
 			<tbody>
 				<tr>
@@ -76,6 +119,17 @@
 					<td>C</td>
 					<td>D</td>
 					<td>E</td>
+				</tr>
+		</table>
+		<table id="nextJP" class="next">
+			<tbody>
+				<tr>
+					<td>Time Until</td>
+					<td>Dungeon</td>
+				</tr>
+				<tr>
+					<td id="nextTimeJP"></td>
+					<td id="nextDungeonJP"></td>
 				</tr>
 		</table>
 	</div>
