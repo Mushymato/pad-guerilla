@@ -125,22 +125,26 @@
 		function cdUpdate() {
 			var now = new Date().getTime();
 			for (var server in timeGrouped){
-				console.log(nextTime[server]);
-				if(nextTime[server] * 1000 - now < 0 || nextTime[server] == 0){
+				if(nextTime[server] * 1000 - now < 0){
 					var next = 0;
-					for (var val of timeGrouped[server]) {
-						if(val[0] * 1000 > now && next == 0){
-							next = val[0];
+					for (let [k, v] of timeGrouped[server]) {
+						if(k * 1000 >= now && next == 0){
+							next = k;
 							break;
 						}
 					}
-					activeTime[server] = nextTime[server];
 					nextTime[server] = next;
 				}
-				if(activeTime[server] * 1000 - now < 0 || activeTime[server] == 0){
-					activeTime[server] = 0;
+				if(activeTime[server] * 1000 - now < 0){
+					var next = 0;
+					for (let [k, v] of timeGrouped[server]) {
+						if(k * 1000 <= now && v[0]['end_timestamp'] * 1000 >= now && next == 0){
+							next = k;
+							break;
+						}
+					}
+					activeTime[server] = next;
 				}
-				console.log(nextTime[server]);
 				var clockNext;
 				var clockActive;
 				var iconNext;
@@ -154,8 +158,6 @@
 					for (var dungeon of timeGrouped[server].get(nextTime[server])){
 						iconNext += dungeon['group'] + ' : ' +getIcon(dungeon['dungeon_name']);
 					}
-					console.log(clockNext);
-					console.log(iconNext);
 				}else{
 					clockNext = 0;
 					iconNext = "None";
@@ -164,7 +166,9 @@
 				$('#nextDungeon'+server).html(iconNext);
 				
 				if(activeTime[server] > 0){
-					var distance = activeTime[server] * 1000 - now;
+					var endtime = timeGrouped[server].get(activeTime[server])[0]['end_timestamp'];
+					console.log(fmtDate(new Date(endtime)));
+					var distance = endtime * 1000 - now;
 					var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 					var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 					clockActive = hours + "h " + minutes + "m";
@@ -191,7 +195,6 @@
 		if(window.localStorage.getItem('mode') === null){
 			window.localStorage.setItem('mode', 'group');
 		}
-		// var cd = setInterval(cdUpdate, 60000);		
 		refreshSetting();
-		window.setTimeout(cdUpdate,100);
+		window.setTimeout(cdUpdate,1000);
 	}
