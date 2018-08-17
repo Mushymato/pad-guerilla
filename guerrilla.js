@@ -15,7 +15,7 @@
 		for (var m of modes){
 			$(m).css('display', 'none');
 		}
-		$('.'+window.localStorage.getItem('mode')).css('display', 'table');
+		$('.'+window.localStorage.getItem('mode')).css('display', 'block');
 	}
 	function switchRegion(){
 		if(window.localStorage.getItem('region') === 'NA'){
@@ -72,7 +72,12 @@
 				for (var g of ['A', 'B', 'C', 'D', 'E']) {
 					var item = groupedItems.get(g, new Map());
 					if (item && 'start_timestamp' in item) {
-						row += td(fmtDate(new Date(item['start_timestamp'] * 1000)));
+						var now = new Date().getTime() ;
+						if(now > item['start_timestamp'] * 1000 && now < item['end_timestamp'] * 1000){
+							row += '<td class=\"highlight\">' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</td>';
+						}else{
+							row += td(fmtDate(new Date(item['start_timestamp'] * 1000)));
+						}
 					} else {
 						row += td('');
 					}
@@ -95,7 +100,10 @@
 					value.sort(function(a,b){
 						return a['group'].toString().localeCompare(b['group'].toString());
 					});
-					var g = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4};
+					for (var dungeon of value){
+						row += td(dungeon['group'] + ' : ' +getIcon(dungeon['dungeon_name']));
+					}
+					/* var g = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4};
 					var current = 0;
 					for (var i of value){
 						while(current < g[i['group']]){
@@ -109,10 +117,18 @@
 							row += td(icon);
 							current += 1;
 						}
+					} */
+					
+					var now = new Date().getTime()
+					if(now > key * 1000 && now < value[0]['end_timestamp'] * 1000){
+						row = '<tr class=\"highlight\">' + row + '</tr>';
+					}else{
+						row = tr(row);
 					}
-					addRow('#schedule'+server,tr(row));
-					nextTime[server] = timeGrouped[server].values().next().value[0]['start_timestamp'];
+
+					addRow('#schedule'+server,row);
 				});
+				nextTime[server] = timeGrouped[server].values().next().value[0]['start_timestamp'];
 			}
 		}
 		function populate() {
@@ -128,7 +144,7 @@
 				if(nextTime[server] * 1000 - now < 0){
 					var next = 0;
 					for (let [k, v] of timeGrouped[server]) {
-						if(k * 1000 >= now && next == 0){
+						if(k * 1000 > now){
 							next = k;
 							break;
 						}
@@ -138,55 +154,53 @@
 				if(activeTime[server] * 1000 - now < 0){
 					var next = 0;
 					for (let [k, v] of timeGrouped[server]) {
-						if(k * 1000 <= now && v[0]['end_timestamp'] * 1000 >= now && next == 0){
+						if(k * 1000 < now && v[0]['end_timestamp'] * 1000 > now){
 							next = k;
 							break;
 						}
 					}
 					activeTime[server] = next;
 				}
-				var clockNext;
-				var clockActive;
-				var iconNext;
-				var iconActive;
+				var clock;
+				var icon;
 				if(nextTime[server] > 0){
 					var distance = nextTime[server] * 1000 - now;
 					var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 					var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-					clockNext = hours + "h " + minutes + "m ";
-					iconNext = '';
+					clock = hours + "h " + minutes + "m ";
+					icon = '';
 					for (var dungeon of timeGrouped[server].get(nextTime[server])){
-						iconNext += dungeon['group'] + ' : ' +getIcon(dungeon['dungeon_name']);
+						icon += dungeon['group'] + ' : ' +getIcon(dungeon['dungeon_name']) + '</td><td>';
 					}
+					icon.substring(0, icon.length-4);
 				}else{
-					clockNext = 0;
-					iconNext = "None";
+					clock = 0;
+					icon = "None";
 				}
-				$('#nextTime'+server).html(clockNext);
-				$('#nextDungeon'+server).html(iconNext);
+				$('#nextTime'+server).html(clock);
+				$('#nextDungeon'+server).html(icon);
 				
 				if(activeTime[server] > 0){
 					var endtime = timeGrouped[server].get(activeTime[server])[0]['end_timestamp'];
-					console.log(fmtDate(new Date(endtime)));
 					var distance = endtime * 1000 - now;
 					var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 					var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-					clockActive = hours + "h " + minutes + "m";
-					iconActive = '';
+					clock = hours + "h " + minutes + "m";
+					icon = '';
 					for (var dungeon of timeGrouped[server].get(activeTime[server])){
-						iconActive += dungeon['group'] + ' : ' +getIcon(dungeon['dungeon_name']);
+						icon += dungeon['group'] + ' : ' +getIcon(dungeon['dungeon_name']);
 					}
-					$('.active').css('display', 'table');
 				}else{
-					clockActive = "--h --m";;
-					iconActive = "None";
-					$('.active').css('display', 'none');
+					clock = "--h --m";;
+					icon = "None";
 				}
-				$('#activeTime'+server).html(clockActive);
-				$('#activeDungeon'+server).html(iconActive);
+				$('#activeTime'+server).html(clock);
+				$('#activeDungeon'+server).html(icon);
 			}
-			
-			setTimeout(cdUpdate, 60000);
+		}
+		function cdUpdateRepeat(){
+			cdUpdate();
+			setTimeout(cdUpdateRepeat, 60000);
 		}
 		populate();
 		if(window.localStorage.getItem('region') === null){
@@ -196,5 +210,8 @@
 			window.localStorage.setItem('mode', 'group');
 		}
 		refreshSetting();
-		window.setTimeout(cdUpdate,1000);
+		window.setTimeout(function(){
+			setTimeout(cdUpdate, 500);
+			setTimeout(cdUpdateRepeat, (60 - new Date().getSeconds()) * 1000);
+		}, 1000);
 	}

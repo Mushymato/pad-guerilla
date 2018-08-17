@@ -14,17 +14,8 @@
 .JP{
 	display:none;
 }
-.group{
-	display:table;
-}
-.schedule{
-	display:none;
-}
-.active{
-	display:none;
-}
-.next{
-	display:none;
+.highlight{
+	border: 2px solid black;
 }
 </style>
 
@@ -41,17 +32,6 @@
 	<a href="#" onclick="pickMode('next');">By Countdown</a>
 	</br>
 	<div class="NA">
-		<table id="activeNA" class="active">
-			<tbody>
-				<tr>
-					<td>Time Remaining</td>
-					<td>Dungeon</td>
-				</tr>
-				<tr>
-					<td id="activeTimeNA"></td>
-					<td id="activeDungeonNA"></td>
-				</tr>
-		</table>
 		<table id="groupNA" class="group">
 			<tbody>
 				<tr>
@@ -74,6 +54,17 @@
 					<td>E</td>
 				</tr>
 		</table>
+		<table id="activeNA" class="next">
+			<tbody>
+				<tr>
+					<td>Time Remaining</td>
+					<td>Dungeon</td>
+				</tr>
+				<tr>
+					<td id="activeTimeNA"></td>
+					<td id="activeDungeonNA"></td>
+				</tr>
+		</table>
 		<table id="nextNA" class="next">
 			<tbody>
 				<tr>
@@ -88,17 +79,6 @@
 	</div>
 
 	<div class="JP">
-		<table id="activeJP" class="active">
-			<tbody>
-				<tr>
-					<td>Time Remaining</td>
-					<td>Dungeon</td>
-				</tr>
-				<tr>
-					<td id="activeTimeJP"></td>
-					<td id="activeDungeonJP"></td>
-				</tr>
-		</table>
 		<table id="groupJP" class="group">
 			<tbody>
 				<tr>
@@ -114,24 +94,33 @@
 			<tbody>
 				<tr>
 					<td>Time</td>
-					<td>A</td>
-					<td>B</td>
-					<td>C</td>
-					<td>D</td>
-					<td>E</td>
-				</tr>
-		</table>
-		<table id="nextJP" class="next">
-			<tbody>
-				<tr>
-					<td>Time Until</td>
 					<td>Dungeon</td>
 				</tr>
-				<tr>
-					<td id="nextTimeJP"></td>
-					<td id="nextDungeonJP"></td>
-				</tr>
 		</table>
+		<div class="next">
+			<table id="activeJP">
+				<tbody>
+					<tr>
+						<td>Time Remaining</td>
+						<td>Dungeon</td>
+					</tr>
+					<tr>
+						<td id="activeTimeJP"></td>
+						<td id="activeDungeonJP"></td>
+					</tr>
+			</table>
+			<table id="nextJP">
+				<tbody>
+					<tr>
+						<td>Time Until</td>
+						<td>Dungeon</td>
+					</tr>
+					<tr>
+						<td id="nextTimeJP"></td>
+						<td id="nextDungeonJP"></td>
+					</tr>
+			</table>
+		</div>
 	</div>
 </body>
 </html>
