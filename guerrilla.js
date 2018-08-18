@@ -62,16 +62,32 @@
 				if (!(name in namedItems)) {
 					namedItems[name] = new Map();
 				}
-				namedItems[name].set(group, x);
+				if (!(namedItems[name].has(group))) {
+					namedItems[name].set(group, []);
+				}
+				namedItems[name].get(group).push(x);
 			}
 			for (var name in namedItems) {
 				var groupedItems = namedItems[name];
-				var firstItem = groupedItems.values().next().value;
+				var firstItem = groupedItems.values().next().value[0];
 				var server = firstItem['server'];
 				var row = td(getIcon(name));
 				for (var g of ['A', 'B', 'C', 'D', 'E']) {
-					var item = groupedItems.get(g, new Map());
-					if (item && 'start_timestamp' in item) {
+					if (!(groupedItems.has(g))) {
+						continue;
+					}
+					row += '<td>';
+					for(var item of groupedItems.get(g)){
+						var now = new Date().getTime() ;
+						if(now > item['start_timestamp'] * 1000 && now < item['end_timestamp'] * 1000){
+							row += '<span class=\"highlight\">' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</span></br>';
+						}else{
+							row += '<span>' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</span></br>';
+						}
+					}
+					row = row.substring(0,row.length - 5) + '</td>';
+					
+					/*if (item && 'start_timestamp' in item) {
 						var now = new Date().getTime() ;
 						if(now > item['start_timestamp'] * 1000 && now < item['end_timestamp'] * 1000){
 							row += '<td class=\"highlight\">' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</td>';
@@ -80,8 +96,9 @@
 						}
 					} else {
 						row += td('');
-					}
+					}*/
 				}
+				console.log(row);
 				addRow('#group'+server,tr(row));
 			}
 			
