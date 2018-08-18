@@ -100,10 +100,12 @@
 					value.sort(function(a,b){
 						return a['group'].toString().localeCompare(b['group'].toString());
 					});
-					for (var dungeon of value){
+					
+					/*for (var dungeon of value){
 						row += td(dungeon['group'] + ' : ' +getIcon(dungeon['dungeon_name']));
-					}
-					/* var g = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4};
+					}*/
+					
+					var g = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4};
 					var current = 0;
 					for (var i of value){
 						while(current < g[i['group']]){
@@ -117,7 +119,7 @@
 							row += td(icon);
 							current += 1;
 						}
-					} */
+					}
 					
 					var now = new Date().getTime()
 					if(now > key * 1000 && now < value[0]['end_timestamp'] * 1000){
