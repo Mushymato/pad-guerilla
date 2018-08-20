@@ -77,16 +77,18 @@ window.onload=function(){
 				if (!(groupedItems.has(g))) {
 					row += td('');
 				}else{
-					row += '<td>';
+					var times = '';
+					var tdTag = '<td>';
 					for(var item of groupedItems.get(g)){
 						var now = new Date().getTime() ;
 						if(now > item['start_timestamp'] * 1000 && now < item['end_timestamp'] * 1000){
-							row += '<span class=\"highlight\">' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</span></br>';
+							times += '<div class=\"highlight\">' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</div>';
+							tdTag = '<td class=\"highlight\">';
 						}else{
-							row += '<span>' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</span></br>';
+							times += '<div>' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</div>';
 						}
 					}
-					row = row.substring(0,row.length - 5) + '</td>';
+					row += tdTag + times + '</td>';
 				}
 			}
 			addRow('#group'+server,tr(row));
