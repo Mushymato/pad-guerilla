@@ -1,2 +1,2 @@
-# pad-guerilla
-Display Mirubot Guerilla data in browser
+# pad-guerrilla
+Display Mirubot Guerrilla data in browser
