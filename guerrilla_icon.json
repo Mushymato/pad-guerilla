@@ -1,6 +1,6 @@
 {
-	"iconURL" : "http://puzzledragonx.com/en/img/book/",
-	"dungeonURL" : "http://puzzledragonx.com/en/mission.asp?m=",
+	"iconURL" : "https://puzzledragonx.com/en/img/book/",
+	"dungeonURL" : "https://puzzledragonx.com/en/mission.asp?m=",
 	
 	"Extreme King Metal Dragon!" : {"i" : "1324.png", "d" : "1043"},
 	"Gem Temple" : {"i" : "4464.png", "d" : "3611"},
