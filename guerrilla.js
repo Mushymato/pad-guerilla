@@ -75,18 +75,19 @@ window.onload=function(){
 			var row = td(getIcon(name));
 			for (var g of ['A', 'B', 'C', 'D', 'E']) {
 				if (!(groupedItems.has(g))) {
-					continue;
-				}
-				row += '<td>';
-				for(var item of groupedItems.get(g)){
-					var now = new Date().getTime() ;
-					if(now > item['start_timestamp'] * 1000 && now < item['end_timestamp'] * 1000){
-						row += '<span class=\"highlight\">' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</span></br>';
-					}else{
-						row += '<span>' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</span></br>';
+					row += td('');
+				}else{
+					row += '<td>';
+					for(var item of groupedItems.get(g)){
+						var now = new Date().getTime() ;
+						if(now > item['start_timestamp'] * 1000 && now < item['end_timestamp'] * 1000){
+							row += '<span class=\"highlight\">' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</span></br>';
+						}else{
+							row += '<span>' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</span></br>';
+						}
 					}
+					row = row.substring(0,row.length - 5) + '</td>';
 				}
-				row = row.substring(0,row.length - 5) + '</td>';
 			}
 			addRow('#group'+server,tr(row));
 		}
@@ -102,39 +103,40 @@ window.onload=function(){
 		for (var server in timeGrouped){
 			timeGrouped[server] = new Map([...timeGrouped[server].entries()].sort());
 			timeGrouped[server].forEach(function(value, key, map) {
-				var row = td(fmtDate(new Date(key * 1000)));
-				value.sort(function(a,b){
-					return a['group'].toString().localeCompare(b['group'].toString());
-				});
-				
-				/*for (var dungeon of value){
-					row += td(dungeon['group'] + ' : ' +getIcon(dungeon['dungeon_name']));
-				}*/
-				
-				var g = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4};
-				var current = 0;
-				for (var i of value){
-					while(current < g[i['group']]){
-						row += td('');
-						current += 1;
+				var now = new Date().getTime();
+				if(now < value[0]['end_timestamp'] * 1000){
+					var row = td(fmtDate(new Date(key * 1000)));
+					value.sort(function(a,b){
+						return a['group'].toString().localeCompare(b['group'].toString());
+					});
+					
+					/*for (var dungeon of value){
+						row += td(dungeon['group'] + ' : ' +getIcon(dungeon['dungeon_name']));
+					}*/
+					
+					var g = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4};
+					var current = 0;
+					for (var i of value){
+						while(current < g[i['group']]){
+							row += td('');
+							current += 1;
+						}
+						var icon = getIcon(i['dungeon_name']);
+						if(current > g[i['group']]){
+							row = row.substring(0,row.length - 5) + '</br>' + icon + '</td>';
+						}else{
+							row += td(icon);
+							current += 1;
+						}
 					}
-					var icon = getIcon(i['dungeon_name']);
-					if(current > g[i['group']]){
-						row = row.substring(0,row.length - 5) + '</br>' + icon + '</td>';
+					
+					if(now > key * 1000){
+						row = '<tr class=\"highlight\">' + row + '</tr>';
 					}else{
-						row += td(icon);
-						current += 1;
+						row = tr(row);
 					}
+					addRow('#schedule'+server,row);
 				}
-				
-				var now = new Date().getTime()
-				if(now > key * 1000 && now < value[0]['end_timestamp'] * 1000){
-					row = '<tr class=\"highlight\">' + row + '</tr>';
-				}else{
-					row = tr(row);
-				}
-
-				addRow('#schedule'+server,row);
 			});
 			nextTime[server] = timeGrouped[server].values().next().value[0]['start_timestamp'];
 		}
