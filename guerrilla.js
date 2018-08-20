@@ -88,7 +88,6 @@ window.onload=function(){
 				}
 				row = row.substring(0,row.length - 5) + '</td>';
 			}
-			console.log(row);
 			addRow('#group'+server,tr(row));
 		}
 		
