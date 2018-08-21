@@ -131,6 +131,10 @@ window.onload=function(){
 							current += 1;
 						}
 					}
+					while(current < 5){
+						row += td('');
+						current += 1;
+					}
 					
 					if(now > key * 1000){
 						row = '<tr class=\"highlight\">' + row + '</tr>';
