@@ -21,7 +21,7 @@ function refreshSetting() {
 	for (var m of modes){
 		$(m).css('display', 'none');
 	}
-	$('.'+window.localStorage.getItem('mode')).css('display', 'block');
+	$('.'+window.localStorage.getItem('mode')).css('display', 'table');
 }
 function switchRegion(){
 	if(window.localStorage.getItem('region') === 'NA'){
