@@ -1,6 +1,8 @@
 function fmtDate(d) {
-	var s = d.getMonth() + '/' + d.getDate() + ' ' + ("0" + d.getHours()).slice(-2) + ':' + ("0" + d.getMinutes()).slice(-2);
-	return s;
+	return moment(d * 1000).format('M/DD HH:mm');
+}
+function fmtHour(d){
+	return moment(d * 1000).format('HH:mm');
 }
 
 function refreshSetting() {
@@ -50,6 +52,19 @@ window.onload=function(){
 			return "<img src=\""+icon['iconURL']+"4014.png\" title=\""+dungeonName+"\" width="+w+" height="+w+"/>";
 		}
 	}
+	
+	// NA is UTC-8, JP is UTC+9
+	var dayStart = {
+		'NA': moment.utc().startOf('day').subtract(1, 'day').add(8, 'hour').unix(),
+		'JP': moment.utc().startOf('day').add(9, 'hour').unix()
+	};
+	var dayEnd = {
+		'NA': moment.utc(dayStart['NA'] * 1000).add(1, 'day').unix(),
+		'JP': moment.utc(dayStart['JP'] * 1000).add(1, 'day').unix(),
+	};
+	
+	console.log(fmtDate(moment.utc().unix()));
+	
 	var timeGrouped = {'NA': new Map(), 'JP': new Map()};
 	var nextTime = {'NA': 0, 'JP': 0};
 	var activeTime = {'NA': 0, 'JP': 0};
@@ -80,12 +95,26 @@ window.onload=function(){
 					var times = '';
 					var tdTag = '<td>';
 					for(var item of groupedItems.get(g)){
-						var now = new Date().getTime() ;
-						if(now > item['start_timestamp'] * 1000 && now < item['end_timestamp'] * 1000){
-							times += '<div class=\"highlight\">' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</div>';
+						/*if(dayStart[server] < item['start_timestamp'] && dayEnd[server] > item['start_timestamp']){
+							var now = moment().unix() ;
+							if(now > item['start_timestamp'] && now < item['end_timestamp']){
+								times += '<div class=\"highlight\">' + fmtDate(item['start_timestamp']) + '</div>';
+								tdTag = '<td class=\"highlight\">';
+							}else{
+								times += '<div>' + fmtDate(item['start_timestamp']) + '</div>';
+							}
+						}else{
+							console.log(item);
+							console.log(fmtDate(dayStart[server]));
+							console.log(fmtDate(item['start_timestamp']));
+							console.log(fmtDate(dayEnd[server]));
+						}*/
+						var now = moment().unix() ;
+						if(now > item['start_timestamp'] && now < item['end_timestamp']){
+							times += '<div class=\"highlight\">' + fmtDate(item['start_timestamp']) + '</div>';
 							tdTag = '<td class=\"highlight\">';
 						}else{
-							times += '<div>' + fmtDate(new Date(item['start_timestamp'] * 1000)) + '</div>';
+							times += '<div>' + fmtDate(item['start_timestamp']) + '</div>';
 						}
 					}
 					row += tdTag + times + '</td>';
@@ -105,9 +134,10 @@ window.onload=function(){
 		for (var server in timeGrouped){
 			timeGrouped[server] = new Map([...timeGrouped[server].entries()].sort());
 			timeGrouped[server].forEach(function(value, key, map) {
-				var now = new Date().getTime();
-				if(now < value[0]['end_timestamp'] * 1000){
-					var row = td(fmtDate(new Date(key * 1000)));
+				
+				var now = moment().unix() ;
+				if(now < value[0]['end_timestamp']){
+					var row = td(fmtDate(key));
 					value.sort(function(a,b){
 						return a['group'].toString().localeCompare(b['group'].toString());
 					});
@@ -155,22 +185,22 @@ window.onload=function(){
 		//$.getJSON('./guerrilla_data.json').done(loadSortedData);
 	}
 	function cdUpdate() {
-		var now = new Date().getTime();
+		var now = moment().unix();
 		for (var server in timeGrouped){
-			if(nextTime[server] * 1000 - now < 0){
+			if(nextTime[server] - now < 0){
 				var next = 0;
 				for (let [k, v] of timeGrouped[server]) {
-					if(k * 1000 > now){
+					if(k > now){
 						next = k;
 						break;
 					}
 				}
 				nextTime[server] = next;
 			}
-			if(activeTime[server] * 1000 - now < 0){
+			if(activeTime[server] - now < 0){
 				var next = 0;
 				for (let [k, v] of timeGrouped[server]) {
-					if(k * 1000 < now && v[0]['end_timestamp'] * 1000 > now){
+					if(k < now && v[0]['end_timestamp'] > now){
 						next = k;
 						break;
 					}
@@ -180,9 +210,9 @@ window.onload=function(){
 			var clock;
 			var icon;
 			if(nextTime[server] > 0){
-				var distance = nextTime[server] * 1000 - now;
-				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var distance = nextTime[server] - now;
+				var hours = Math.floor((distance % (60 * 60 * 24)) / (60 * 60));
+				var minutes = Math.floor((distance % (60 * 60)) / (60));
 				clock = hours + "h " + minutes + "m ";
 				icon = '<td>';
 				for (var dungeon of timeGrouped[server].get(nextTime[server])){
@@ -198,9 +228,9 @@ window.onload=function(){
 			
 			if(activeTime[server] > 0){
 				var endtime = timeGrouped[server].get(activeTime[server])[0]['end_timestamp'];
-				var distance = endtime * 1000 - now;
-				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var distance = endtime - now;
+				var hours = Math.floor((distance % (60 * 60 * 24)) / (60 * 60));
+				var minutes = Math.floor((distance % (60 * 60)) / (60));
 				clock = hours + "h " + minutes + "m";
 				icon = '<td>';
 				for (var dungeon of timeGrouped[server].get(activeTime[server])){
@@ -229,6 +259,6 @@ window.onload=function(){
 	refreshSetting();
 	window.setTimeout(function(){
 		setTimeout(cdUpdate, 500);
-		setTimeout(cdUpdateRepeat, (60 - new Date().getSeconds()) * 1000);
+		setTimeout(cdUpdateRepeat, (60 - moment().second()) * 1000);
 	}, 1000);
 }
