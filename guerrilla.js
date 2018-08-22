@@ -47,6 +47,10 @@ window.onload=function(){
 	}
 	var icon = {};
 	function getIcon(dungeonName) {
+		if(dungeonName.charAt(0) === '$'){
+			var tmp = dungeonName.split('$');
+			dungeonName = tmp[2];
+		}
 		var w = "50";
 		if(icon[dungeonName] != null){
 			var dungeonLink = (icon[dungeonName]["d"].length > 0) ? icon['dungeonURL'] + icon[dungeonName]["d"] : "#";
