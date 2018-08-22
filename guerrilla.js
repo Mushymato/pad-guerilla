@@ -1,8 +1,11 @@
-function fmtDate(d) {
-	return moment(d * 1000).format('M/DD HH:mm');
+function fmtDay(d) {
+	return moment(d * 1000).format('M/DD');
 }
 function fmtHour(d){
 	return moment(d * 1000).format('HH:mm');
+}
+function fmtDate(d){
+	return moment(d * 1000).format('M/DD HH:mm');
 }
 
 function refreshSetting() {
@@ -55,15 +58,13 @@ window.onload=function(){
 	
 	// NA is UTC-8, JP is UTC+9
 	var dayStart = {
-		'NA': moment.utc().startOf('day').subtract(1, 'day').add(8, 'hour').unix(),
-		'JP': moment.utc().startOf('day').add(9, 'hour').unix()
+		'NA': moment().utcOffset(-8).startOf('day').unix(),
+		'JP': moment().utcOffset(9).startOf('day').unix()
 	};
 	var dayEnd = {
-		'NA': moment.utc(dayStart['NA'] * 1000).add(1, 'day').unix(),
-		'JP': moment.utc(dayStart['JP'] * 1000).add(1, 'day').unix(),
+		'NA': moment().utcOffset(-8).endOf('day').unix(),
+		'JP': moment().utcOffset(9).endOf('day').unix()
 	};
-	
-	console.log(fmtDate(moment.utc().unix()));
 	
 	var timeGrouped = {'NA': new Map(), 'JP': new Map()};
 	var nextTime = {'NA': 0, 'JP': 0};
@@ -73,15 +74,17 @@ window.onload=function(){
 		
 		var namedItems = {};
 		for (var x of items) {
-			var name = x['dungeon_name'];
-			var group = x['group'];
-			if (!(name in namedItems)) {
-				namedItems[name] = new Map();
+			if(dayStart[x['server']] < x['start_timestamp'] && dayEnd[x['server']] > x['start_timestamp']){
+				var name = x['dungeon_name'];
+				var group = x['group'];
+				if (!(name in namedItems)) {
+					namedItems[name] = new Map();
+				}
+				if (!(namedItems[name].has(group))) {
+					namedItems[name].set(group, []);
+				}
+				namedItems[name].get(group).push(x);
 			}
-			if (!(namedItems[name].has(group))) {
-				namedItems[name].set(group, []);
-			}
-			namedItems[name].get(group).push(x);
 		}
 		for (var name in namedItems) {
 			var groupedItems = namedItems[name];
@@ -95,20 +98,6 @@ window.onload=function(){
 					var times = '';
 					var tdTag = '<td>';
 					for(var item of groupedItems.get(g)){
-						/*if(dayStart[server] < item['start_timestamp'] && dayEnd[server] > item['start_timestamp']){
-							var now = moment().unix() ;
-							if(now > item['start_timestamp'] && now < item['end_timestamp']){
-								times += '<div class=\"highlight\">' + fmtDate(item['start_timestamp']) + '</div>';
-								tdTag = '<td class=\"highlight\">';
-							}else{
-								times += '<div>' + fmtDate(item['start_timestamp']) + '</div>';
-							}
-						}else{
-							console.log(item);
-							console.log(fmtDate(dayStart[server]));
-							console.log(fmtDate(item['start_timestamp']));
-							console.log(fmtDate(dayEnd[server]));
-						}*/
 						var now = moment().unix() ;
 						if(now > item['start_timestamp'] && now < item['end_timestamp']){
 							times += '<div class=\"highlight\">' + fmtDate(item['start_timestamp']) + '</div>';
