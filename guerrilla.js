@@ -173,9 +173,9 @@ window.onload=function(){
 	function populate() {
 		$.getJSON('./guerrilla_icon.json').done(function(data){
 			icon = data;
+			$.getJSON('https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json').done(loadSortedData);
+			//$.getJSON('./guerrilla_data.json').done(loadSortedData);
 		});
-		$.getJSON('https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json').done(loadSortedData);
-		//$.getJSON('./guerrilla_data.json').done(loadSortedData);
 	}
 	function cdUpdate() {
 		var now = moment().unix();
