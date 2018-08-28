@@ -159,7 +159,7 @@ window.onload=function(){
 						current += 1;
 					}
 					
-					if(now > key * 1000){
+					if(now > key){
 						row = '<tr class=\"highlight\">' + row + '</tr>';
 					}else{
 						row = tr(row);
