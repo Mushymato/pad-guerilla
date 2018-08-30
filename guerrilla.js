@@ -73,7 +73,7 @@ window.onload=function(){
 	var timeGrouped = {'NA': new Map(), 'JP': new Map()};
 	var nextTime = {'NA': 0, 'JP': 0};
 	var activeTime = {'NA': 0, 'JP': 0};
-	function loadSortedData(data) {
+	function loadGroupData(data) {
 		var items = data['items'];
 		
 		var namedItems = {};
@@ -115,6 +115,9 @@ window.onload=function(){
 			}
 			addRow('#group'+server,tr(row));
 		}
+	}
+	function loadScheduleData(data) {
+		var items = data['items'];
 		
 		for (var i of items) {
 			var sts = i['start_timestamp'];
@@ -159,7 +162,7 @@ window.onload=function(){
 						current += 1;
 					}
 					
-					if(now > key){
+					if(now > key * 1000){
 						row = '<tr class=\"highlight\">' + row + '</tr>';
 					}else{
 						row = tr(row);
@@ -173,8 +176,9 @@ window.onload=function(){
 	function populate() {
 		$.getJSON('./guerrilla_icon.json').done(function(data){
 			icon = data;
-			$.getJSON('https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json').done(loadSortedData);
-			//$.getJSON('./guerrilla_data.json').done(loadSortedData);
+			//$.getJSON('https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json').done(loadSortedData);
+			$.getJSON('./gd_daily.json').done(loadGroupData);
+			$.getJSON('./gd_hourly.json').done(loadScheduleData);
 		});
 	}
 	function cdUpdate() {
