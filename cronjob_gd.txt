@@ -1,2 +1,3 @@
-50 9 * * * wget https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json -O [directory of guerrilla.js]/gd_daily.json
+50 1 * * * wget https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json -O [directory of guerrilla.js]/gd_daily_na.json
+50 8 * * * wget https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json -O [directory of guerrilla.js]/gd_daily_jp.json
 0 * * * * wget https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json -O [directory of guerrilla.js]/gd_hourly.json

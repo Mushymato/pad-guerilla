@@ -73,21 +73,24 @@ window.onload=function(){
 	var timeGrouped = {'NA': new Map(), 'JP': new Map()};
 	var nextTime = {'NA': 0, 'JP': 0};
 	var activeTime = {'NA': 0, 'JP': 0};
+	
 	function loadGroupData(data) {
+		console.log(data);
 		var items = data['items'];
-		
 		var namedItems = {};
 		for (var x of items) {
-			if(dayStart[x['server']] < x['start_timestamp'] && dayEnd[x['server']] > x['start_timestamp']){
-				var name = x['dungeon_name'];
-				var group = x['group'];
-				if (!(name in namedItems)) {
-					namedItems[name] = new Map();
+			if(x['server'] === this.server){
+				if(dayStart[x['server']] < x['start_timestamp'] && dayEnd[x['server']] > x['start_timestamp']){
+					var name = x['dungeon_name'];
+					var group = x['group'];
+					if (!(name in namedItems)) {
+						namedItems[name] = new Map();
+					}
+					if (!(namedItems[name].has(group))) {
+						namedItems[name].set(group, []);
+					}
+					namedItems[name].get(group).push(x);
 				}
-				if (!(namedItems[name].has(group))) {
-					namedItems[name].set(group, []);
-				}
-				namedItems[name].get(group).push(x);
 			}
 		}
 		for (var name in namedItems) {
@@ -177,7 +180,8 @@ window.onload=function(){
 		$.getJSON('./guerrilla_icon.json').done(function(data){
 			icon = data;
 			//$.getJSON('https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json').done(loadSortedData);
-			$.getJSON('./gd_daily.json').done(loadGroupData);
+			$.getJSON({url:'./gd_daily_na.json', server:'NA'}).done(loadGroupData);
+			$.getJSON({url:'./gd_daily_jp.json', server:'JP'}).done(loadGroupData);
 			$.getJSON('./gd_hourly.json').done(loadScheduleData);
 		});
 	}
