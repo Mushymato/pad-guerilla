@@ -75,7 +75,6 @@ window.onload=function(){
 	var activeTime = {'NA': 0, 'JP': 0};
 	
 	function loadGroupData(data) {
-		console.log(data);
 		var items = data['items'];
 		var namedItems = {};
 		for (var x of items) {
