@@ -54,7 +54,8 @@ window.onload=function(){
 		var w = "50";
 		if(icon[dungeonName] != null){
 			var dungeonLink = (icon[dungeonName]["d"].length > 0) ? icon['dungeonURL'] + icon[dungeonName]["d"] : "#";
-			return "<a href=\"" + dungeonLink + "\" title=\""+dungeonName+"\"><img src=\"" + icon['iconURL'] + icon[dungeonName]["i"] + "\" width="+w+" height="+w+"/></a>";
+			var iconLink = photon(icon['iconURL'] + icon[dungeonName]["i"]);
+			return "<a href=\"" + dungeonLink + "\" title=\""+dungeonName+"\"><img src=\"" + iconLink + "\" width="+w+" height="+w+"/></a>";
 		}else{
 			return "<img src=\""+icon['iconURL']+"4014.png\" title=\""+dungeonName+"\" width="+w+" height="+w+"/>";
 		}
@@ -178,7 +179,7 @@ window.onload=function(){
 	function populate() {
 		$.getJSON('./guerrilla_icon.json').done(function(data){
 			icon = data;
-			//$.getJSON('https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json').done(loadSortedData);
+			//$.getJSON('https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json').done(loadScheduleData);
 			$.getJSON({url:'./gd_daily_na.json', server:'NA', cache: false}).done(loadGroupData);
 			$.getJSON({url:'./gd_daily_jp.json', server:'JP', cache: false}).done(loadGroupData);
 			$.getJSON({url:'./gd_hourly.json', cache: false}).done(loadScheduleData);
