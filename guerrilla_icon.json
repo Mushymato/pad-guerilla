@@ -21,9 +21,9 @@
 	"Gaia Dragon Descended!" : {"i" : "2718.png", "d" : "2104"},
 	"Zeus Dragon Descended!" : {"i" : "2719.png", "d" : "2098"},
 	"Hera Dragon Descended!" : {"i" : "2720.png", "d" : "2151"},
-	"Drahklist Descended! [★6 or lower Enhanced x3]" : {"i" : "2939.png", "d" : "2881"},
-	"Whaledor Descended! [★6 or lower Enhanced x3]" : {"i" : "2940.png", "d" : "2882"},
-	"Raguel Descended! [★6 or lower Enhanced x3]" : {"i" : "2941.png", "d" : "2883"},
+	"Drahklist Descended! [★6 or lower]" : {"i" : "2939.png", "d" : "2881"},
+	"Whaledor Descended! [★6 or lower]" : {"i" : "2940.png", "d" : "2882"},
+	"Raguel Descended! [★6 or lower]" : {"i" : "2941.png", "d" : "2883"},
 
 	
 	"超絶メタドラ 降臨！" : {"i" : "1324.png", "d" : "1043"},
