@@ -137,7 +137,7 @@ function get_icon($dungeon_name){
 	return tag('a', "<img src=\"$icon_url\" class=\"dungeon-icon\">", "href=\"$dungeon_url\" title=\"$dungeon_name\"");
 }
 function get_buttons(){
-	return "<p>TIMES ARE LOCAL TO YOUR BROWSER</p><button onclick=\"switchRegion();\">Switch Region: <span id=\"region\"></span></button><button onclick=\"pickMode('group');\">By Group</button><button onclick=\"pickMode('schedule');\">By Time</button><button onclick=\"pickMode('next');\">By Countdown</button>";
+	return "<p>TIMES ARE LOCAL TO YOUR BROWSER</p><button onclick=\"switchRegion();\">Switch Region: <span id=\"region\"></span></button><button onclick=\"pickMode('group');\">By Group</button><button onclick=\"pickMode('schedule');\">By Time</button><button onclick=\"pickMode('next');updateTimediff();\">By Countdown</button>";
 }
 function get_tables(){
 	$by_dungeon_group = array('JP' => array(), 'NA' => array());
