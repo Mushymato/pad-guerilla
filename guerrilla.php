@@ -84,7 +84,6 @@ function updateTimediff(){
 window.onload=function(){
 	refreshSetting();
 	toLocalTime();
-	$('body').css('display', 'block');
 	updateTimediff();
 	setTimeout(function(){
 		updateTimediff();
@@ -93,9 +92,6 @@ window.onload=function(){
 }
 </script>
 <style>
-body{
-	display: none;
-}
 .highlight{
 	background-color:powderblue;
 }
