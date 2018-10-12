@@ -249,6 +249,12 @@ window.onload=function(){
 		setTimeout(cdUpdateRepeat, 60000);
 	}
 	populate();
+	
+	var gachadra = document.querySelectorAll("table#gachadraNA td > div");
+	for(var g in gachadra){
+		gachadra[g].innerHTML = fmtDate(gachadra[g].innerHTML);
+	}
+	
 	if(window.localStorage.getItem('region') === null){
 		window.localStorage.setItem('region', 'JP');
 	}
