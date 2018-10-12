@@ -78,7 +78,7 @@ window.onload=function(){
 		
 		var namedItems = {};
 		for (var x of items) {
-			if(x['dungeon_name'] = 'PAD Island REMDra Descended!'){
+			if(x['dungeon_name'] === 'PAD Island REMDra Descended!'){
 				continue;
 			}
 			if(dayStart[x['server']] < x['start_timestamp'] && dayEnd[x['server']] > x['start_timestamp']){
@@ -120,7 +120,7 @@ window.onload=function(){
 		}
 		
 		for (var i of items) {
-			if(i['dungeon_name'] = 'PAD Island REMDra Descended!'){
+			if(i['dungeon_name'] === 'PAD Island REMDra Descended!'){
 				continue;
 			}
 			var sts = i['start_timestamp'];
