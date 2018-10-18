@@ -127,6 +127,9 @@ function get_json($url){
 	return json_decode($data, true);
 }
 function get_icon($dungeon_name){
+	if(substr($dungeon_name, 0, 1) == '$'){
+		$dungeon_name = explode('$', $dungeon_name)[2];
+	}
 	global $icon;
 	$icon_url = $icon['iconURL'] . $icon[$dungeon_name]['i'];
 	$dungeon_url = $icon['dungeonURL'] . $icon[$dungeon_name]['i'];
