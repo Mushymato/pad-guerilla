@@ -1,197 +1,196 @@
 {
     "items": [
         {
-            "dungeon_name": "ウェルドール 降臨！【★6以下強化】",
-            "end_timestamp": 1540895400,
-            "group": "A",
-            "server": "JP",
-            "start_timestamp": 1540891800
-        },
-        {
-            "dungeon_name": "ウェルドール 降臨！【★6以下強化】",
-            "end_timestamp": 1540872000,
-            "group": "B",
-            "server": "JP",
-            "start_timestamp": 1540868400
-        },
-        {
-            "dungeon_name": "ウェルドール 降臨！【★6以下強化】",
-            "end_timestamp": 1540906200,
+            "dungeon_name": "\u9032\u5316\u7528\u30e2\u30f3\u30b9\u30bf\u30fc\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540960200,
             "group": "C",
             "server": "JP",
-            "start_timestamp": 1540902600
+            "start_timestamp": 1540956600
         },
         {
-            "dungeon_name": "ウェルドール 降臨！【★6以下強化】",
-            "end_timestamp": 1540882800,
-            "group": "D",
-            "server": "JP",
-            "start_timestamp": 1540879200
-        },
-        {
-            "dungeon_name": "ウェルドール 降臨！【★6以下強化】",
-            "end_timestamp": 1540861200,
-            "group": "E",
-            "server": "JP",
-            "start_timestamp": 1540857600
-        },
-        {
-            "dungeon_name": "ぷれドラ大量発生！",
-            "end_timestamp": 1540866600,
-            "group": "A",
-            "server": "JP",
-            "start_timestamp": 1540863000
-        },
-        {
-            "dungeon_name": "ぷれドラ大量発生！",
-            "end_timestamp": 1540900800,
-            "group": "B",
-            "server": "JP",
-            "start_timestamp": 1540897200
-        },
-        {
-            "dungeon_name": "ぷれドラ大量発生！",
-            "end_timestamp": 1540877400,
+            "dungeon_name": "\u7cbe\u970a\u306e\u5b9d\u7389\u30e9\u30c3\u30b7\u30e5\uff01",
+            "end_timestamp": 1540987200,
             "group": "C",
             "server": "JP",
-            "start_timestamp": 1540873800
+            "start_timestamp": 1540983600
         },
         {
-            "dungeon_name": "ぷれドラ大量発生！",
-            "end_timestamp": 1540911600,
-            "group": "D",
-            "server": "JP",
-            "start_timestamp": 1540908000
-        },
-        {
-            "dungeon_name": "ぷれドラ大量発生！",
-            "end_timestamp": 1540890000,
-            "group": "E",
-            "server": "JP",
-            "start_timestamp": 1540886400
-        },
-        {
-            "dungeon_name": "たまドラ大量発生！",
-            "end_timestamp": 1540891800,
-            "group": "A",
-            "server": "JP",
-            "start_timestamp": 1540888200
-        },
-        {
-            "dungeon_name": "たまドラ大量発生！",
-            "end_timestamp": 1540926000,
-            "group": "B",
-            "server": "JP",
-            "start_timestamp": 1540922400
-        },
-        {
-            "dungeon_name": "たまドラ大量発生！",
-            "end_timestamp": 1540904400,
+            "dungeon_name": "\u305f\u307e\u30c9\u30e9\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540998000,
             "group": "C",
             "server": "JP",
-            "start_timestamp": 1540900800
+            "start_timestamp": 1540994400
         },
         {
-            "dungeon_name": "たまドラ大量発生！",
-            "end_timestamp": 1540881000,
-            "group": "D",
-            "server": "JP",
-            "start_timestamp": 1540877400
-        },
-        {
-            "dungeon_name": "たまドラ大量発生！",
-            "end_timestamp": 1540915200,
+            "dungeon_name": "\u9032\u5316\u7528\u30e2\u30f3\u30b9\u30bf\u30fc\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540971000,
             "group": "E",
             "server": "JP",
-            "start_timestamp": 1540911600
+            "start_timestamp": 1540967400
+        },
+        {
+            "dungeon_name": "\u7cbe\u970a\u306e\u5b9d\u7389\u30e9\u30c3\u30b7\u30e5\uff01",
+            "end_timestamp": 1540998000,
+            "group": "E",
+            "server": "JP",
+            "start_timestamp": 1540994400
+        },
+        {
+            "dungeon_name": "\u305f\u307e\u30c9\u30e9\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540953000,
+            "group": "E",
+            "server": "JP",
+            "start_timestamp": 1540949400
+        },
+        {
+            "dungeon_name": "\u7cbe\u970a\u306e\u5b9d\u7389\u30e9\u30c3\u30b7\u30e5\uff01",
+            "end_timestamp": 1540965600,
+            "group": "D",
+            "server": "JP",
+            "start_timestamp": 1540962000
+        },
+        {
+            "dungeon_name": "\u9032\u5316\u7528\u30e2\u30f3\u30b9\u30bf\u30fc\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540992600,
+            "group": "D",
+            "server": "JP",
+            "start_timestamp": 1540989000
+        },
+        {
+            "dungeon_name": "\u305f\u307e\u30c9\u30e9\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540976400,
+            "group": "D",
+            "server": "JP",
+            "start_timestamp": 1540972800
+        },
+        {
+            "dungeon_name": "\u9032\u5316\u7528\u30e2\u30f3\u30b9\u30bf\u30fc\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540947600,
+            "group": "A",
+            "server": "JP",
+            "start_timestamp": 1540944000
+        },
+        {
+            "dungeon_name": "\u7cbe\u970a\u306e\u5b9d\u7389\u30e9\u30c3\u30b7\u30e5\uff01",
+            "end_timestamp": 1540976400,
+            "group": "A",
+            "server": "JP",
+            "start_timestamp": 1540972800
+        },
+        {
+            "dungeon_name": "\u305f\u307e\u30c9\u30e9\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540987200,
+            "group": "A",
+            "server": "JP",
+            "start_timestamp": 1540983600
+        },
+        {
+            "dungeon_name": "\u7cbe\u970a\u306e\u5b9d\u7389\u30e9\u30c3\u30b7\u30e5\uff01",
+            "end_timestamp": 1540953000,
+            "group": "B",
+            "server": "JP",
+            "start_timestamp": 1540949400
+        },
+        {
+            "dungeon_name": "\u9032\u5316\u7528\u30e2\u30f3\u30b9\u30bf\u30fc\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540981800,
+            "group": "B",
+            "server": "JP",
+            "start_timestamp": 1540978200
+        },
+        {
+            "dungeon_name": "\u305f\u307e\u30c9\u30e9\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540965600,
+            "group": "B",
+            "server": "JP",
+            "start_timestamp": 1540962000
         },
 		
         {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540872000,
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540972800,
             "group": "RED",
             "server": "JP",
-            "start_timestamp": 1540868400
+            "start_timestamp": 1540969200
         },
-        {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540875600,
+		{
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540976400,
             "group": "RED",
             "server": "JP",
-            "start_timestamp": 1540872000
+            "start_timestamp": 1540972800
         },
-        {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540908000,
+		{
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540994400,
             "group": "RED",
             "server": "JP",
-            "start_timestamp": 1540904400
+            "start_timestamp": 1540990800
         },
-        {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540911600,
+		{
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540998000,
             "group": "RED",
             "server": "JP",
-            "start_timestamp": 1540908000
+            "start_timestamp": 1540994400
         },
 		
         {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540886400,
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540944000,
             "group": "BLUE",
             "server": "JP",
-            "start_timestamp": 1540882800
+            "start_timestamp": 1540940400
         },
-        {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540890000,
+		{
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540947600,
             "group": "BLUE",
             "server": "JP",
-            "start_timestamp": 1540886400
+            "start_timestamp": 1540944000
         },
-        {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540915200,
+		{
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540980000,
             "group": "BLUE",
             "server": "JP",
-            "start_timestamp": 1540911600
+            "start_timestamp": 1540976400
         },
-        {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540918800,
+		{
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540983600,
             "group": "BLUE",
             "server": "JP",
-            "start_timestamp": 1540915200
+            "start_timestamp": 1540980000
         },
-
-		        {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540879200,
-            "group": "GREEN",
-            "server": "JP",
-            "start_timestamp": 1540875600
-        },
+		
         {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540882800,
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540958400,
             "group": "GREEN",
             "server": "JP",
-            "start_timestamp": 1540879200
+            "start_timestamp": 1540954800
         },
-        {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540926000,
+		{
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540962000,
             "group": "GREEN",
             "server": "JP",
-            "start_timestamp": 1540922400
+            "start_timestamp": 1540958400
         },
-        {
-            "dungeon_name": "キング大量発生！",
-            "end_timestamp": 1540929600,
+		{
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540987200,
             "group": "GREEN",
             "server": "JP",
-            "start_timestamp": 1540926000
+            "start_timestamp": 1540983600
+        },
+		{
+            "dungeon_name": "\u30ad\u30f3\u30b0\u5927\u91cf\u767a\u751f\uff01",
+            "end_timestamp": 1540990800,
+            "group": "GREEN",
+            "server": "JP",
+            "start_timestamp": 1540987200
         }
-
-	]
+    ]
 }

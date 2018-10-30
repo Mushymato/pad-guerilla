@@ -173,6 +173,7 @@ function get_table_group_rows($dungeon_name, $d_entries, $group_list){
 	return $empty ? '' :tag('tr', $row);
 }
 function get_table_time_rows($start_time, $t_entries, $start_end, $group_list){
+	global $tform;
 	$row = tag('td', date($tform, $start_time), 'class="timestamp" data-timestamp="' . (String) $start_time . '"');
 	$empty = true;
 	foreach($group_list as $group){
