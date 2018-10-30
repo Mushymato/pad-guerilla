@@ -135,14 +135,71 @@ function get_icon($dungeon_name){
 	$dungeon_url = $icon['dungeonURL'] . $icon[$dungeon_name]['i'];
 	return tag('a', "<img src=\"$icon_url\" class=\"dungeon-icon\">", "href=\"$dungeon_url\" title=\"$dungeon_name\"");
 }
+function get_orb($orb){
+	$orb_id = ['RED' => '1', 'BLUE' => '2', 'GREEN' => '3'];
+	if(array_key_exists($orb, $orb_id)){
+		$id = $orb_id[$orb];
+		return "<img src=\"https://pad.protic.site/wp-content/uploads/pad-orbs/$id.png\" width=\"15\" height=\"15\">";
+	}else{
+		return $orb;
+	}
+}
 function get_buttons(){
 	return "<p>TIMES ARE LOCAL TO YOUR BROWSER</p><button onclick=\"switchRegion();\">Switch Region: <span id=\"region\"></span></button><button onclick=\"pickMode('group');\">By Group</button><button onclick=\"pickMode('schedule');\">By Time</button><button onclick=\"pickMode('next');\">By Countdown</button>";
 }
-function get_tables(){
+$tform = 'm/d H:i e';
+function get_table_group_rows($dungeon_name, $d_entries, $group_list){
+	global $tform;
+	$empty = true;
+	$row = tag('td', get_icon($dungeon_name));
+	foreach($group_list as $group){
+		if(array_key_exists($group, $d_entries)){
+			$cells = array();
+			$cell_highlight = '';
+			foreach($d_entries[$group] as $entry){
+				if($entry['start_timestamp'] <= time() && $entry['end_timestamp'] >= time()){
+					$cell_highlight = 'class="highlight"';
+					$cells[$entry['start_timestamp']] = tag('div', date($tform, $entry['start_timestamp']), 'class="highlight timestamp" data-timestamp="' . (String) $entry['start_timestamp'] . '"');
+				}else{
+					$cells[$entry['start_timestamp']] = tag('div', date($tform, $entry['start_timestamp']), 'class="timestamp" data-timestamp="' . (String) $entry['start_timestamp'] . '"');
+				}
+			}
+			$row = $row . tag('td', implode($cells), $cell_highlight);
+			$empty = false;
+		}else{
+			$row = $row . tag('td', '');
+		}
+	}
+	return $empty ? '' :tag('tr', $row);
+}
+function get_table_time_rows($start_time, $t_entries, $start_end, $group_list){
+	$row = tag('td', date($tform, $start_time), 'class="timestamp" data-timestamp="' . (String) $start_time . '"');
+	$empty = true;
+	foreach($group_list as $group){
+		if(array_key_exists($group, $t_entries)){
+			$cells = array();
+			foreach($t_entries[$group] as $entry){
+				$cells[$entry['dungeon_name']] = tag('div', get_icon($entry['dungeon_name']));
+			}
+			$row = $row . tag('td', implode($cells));
+			$empty = false;
+		}else{
+			$row = $row . tag('td', '');
+		}
+	}
+	if($empty){
+		return '';
+	}
+	if($start_time <= time() && $start_end[$start_time] >= time()){
+		return tag('tr', $row, 'class="highlight"');
+	}else{
+		return tag('tr', $row);
+	}
+}
+function get_tables($url_na, $url_jp){
 	$by_dungeon_group = array('JP' => array(), 'NA' => array());
 	$by_time = array('JP' => array(), 'NA' => array());
 	$start_end = array();
-	$tform = 'm/d H:i e';
 	$day = array(
 		'JP' => array(
 			'start' => (new DateTime('today', new DateTimeZone('+0900')))->getTimestamp(), 
@@ -153,89 +210,65 @@ function get_tables(){
 			'end' => (new DateTime('tomorrow', new DateTimeZone('-0800')))->getTimestamp()
 		)
 	);
-	$gd = get_json('https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json?' . time())['items'];
-	foreach($gd as $value){
-		if($value['start_timestamp'] >= $day[$value['server']]['start'] && $value['end_timestamp'] <= $day[$value['server']]['end']){
-			$by_dungeon_group[$value['server']][$value['dungeon_name']][$value['group']][] = $value;
-		}
-		$by_time[$value['server']][$value['start_timestamp']][$value['group']][] = $value;
-		$start_end[$value['start_timestamp']] = $value['end_timestamp'];
-	}
 	
 	//caching ver, untested
-	/*$gd = array();
-	$gd['NA'] = get_json('./gd_daily_na.json)['items'];
-	$gd['JP'] = get_json('./gd_daily_jp.json)['items'];
+	$gd = array();
+	$gd['NA'] = get_json($url_na)['items'];
+	$gd['JP'] = get_json($url_jp)['items'];
 	foreach($gd as $f => $array){
 		foreach($array as $value){
 			if($value['server'] == $f){
-				if($value['start_timestamp'] >= $day[$value['server']]['start'] && $value['end_timestamp'] <= $day[$value['server']]['end']){
+				if($value['start_timestamp'] >= $day[$value['server']]['start'] || $value['end_timestamp'] <= $day[$value['server']]['end']){
 					$by_dungeon_group[$value['server']][$value['dungeon_name']][$value['group']][] = $value;
 				}
 				$by_time[$value['server']][$value['start_timestamp']][$value['group']][] = $value;
 				$start_end[$value['start_timestamp']] = $value['end_timestamp'];
 			}
 		}
-	}*/
+	}
 
 	$out = '';
 	foreach(['JP', 'NA'] as $server){
 		$server_out = '';
-		$tbl = '<tr><td>Dungeon</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>';
+		$tbl_g = '<tr><td>Dungeon</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>';
+		$tbl_gs= '<tr><td>Dungeon</td><td>' . get_orb('RED') . '</td><td>' . get_orb('BLUE') . '</td><td>' . get_orb('GREEN') . '</td></tr>';
+		$has_starter_groups = false;
 		foreach($by_dungeon_group[$server] as $dungeon_name => $d_entries){
-			$row = tag('td', get_icon($dungeon_name));
-			foreach(['A', 'B', 'C', 'D', 'E'] as $group){
-				if(array_key_exists($group, $d_entries)){
-					$cells = array();
-					$cell_highlight = '';
-					foreach($d_entries[$group] as $entry){
-						if($entry['start_timestamp'] <= time() && $entry['end_timestamp'] >= time()){
-							$cell_highlight = 'class="highlight"';
-							$cells[$entry['start_timestamp']] = tag('div', date($tform, $entry['start_timestamp']), 'class="highlight timestamp" data-timestamp="' . (String) $entry['start_timestamp'] . '"');
-						}else{
-							$cells[$entry['start_timestamp']] = tag('div', date($tform, $entry['start_timestamp']), 'class="timestamp" data-timestamp="' . (String) $entry['start_timestamp'] . '"');
-						}
-					}
-					$row = $row . tag('td', implode($cells), $cell_highlight);
-				}else{
-					$row = $row . tag('td', '');
-				}
-			}
-			$row = tag('tr', $row);
-			$tbl = $tbl . $row;
+			$tbl_g = $tbl_g . get_table_group_rows($dungeon_name, $d_entries, ['A', 'B', 'C', 'D', 'E']);
+			$starter_row = get_table_group_rows($dungeon_name, $d_entries, ['RED', 'BLUE', 'GREEN']);
+			$tbl_gs = $tbl_gs . $starter_row;
+			$has_starter_groups = $has_starter_groups || $starter_row != '';
 		}
-		$server_out = $server_out . tag('table', $tbl, 'class="group"');
+		$server_out = $has_starter_groups ? $server_out . tag('div', tag('table', $tbl_g) . tag('table', $tbl_gs), 'class="group"') : $server_out . tag('div', tag('table', $tbl_g), 'class="group"');
 		
 		ksort($by_time[$server]);
-		$tbl = '<tr><td>Time</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>';
+		$tbl_t = '<tr><td>Time</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>';
+		$tbl_ts = '<tr><td>Time</td><td>' . get_orb('RED') . '</td><td>' . get_orb('BLUE') . '</td><td>' . get_orb('GREEN') . '</td></tr>';
+		$has_starter_groups = false;
 		$tbl_tr = '<tr><td>Time Remaining</td><td>Dungeon</td></tr><tr class="tr-none"><td>--h --m</td><td>None</td></tr>';
 		$tbl_tu = '<tr><td>Time Until</td><td>Dungeon</td></tr><tr class="tu-none"><td>--h --m</td><td>None</td></tr>';
 		foreach($by_time[$server] as $start_time => $t_entries){
 			if($start_end[$start_time] >= time()){
-				$row = tag('td', date($tform, $start_time), 'class="timestamp" data-timestamp="' . (String) $start_time . '"');
+				
+				$tbl_t = $tbl_t . get_table_time_rows($start_time, $t_entries, $start_end, ['A', 'B', 'C', 'D', 'E']);
+				$starter_row = get_table_time_rows($start_time, $t_entries, $start_end, ['RED', 'BLUE', 'GREEN']);
+				$tbl_ts = $tbl_ts . $starter_row;
+				$has_starter_groups = $has_starter_groups || $starter_row != '';
+				
 				$row_tru = '';
-				foreach(['A', 'B', 'C', 'D', 'E'] as $group){
+				foreach(['A', 'B', 'C', 'D', 'E', 'RED', 'BLUE', 'GREEN'] as $group){
 					if(array_key_exists($group, $t_entries)){
-						$cells = array();
 						foreach($t_entries[$group] as $entry){
-							$cells[$entry['dungeon_name']] = tag('div', get_icon($entry['dungeon_name']));
-							$row_tru = $row_tru . tag('div', tag('span', $entry['group'], 'class="abcde"') . get_icon($entry['dungeon_name']), 'class="float"');
+							$row_tru = $row_tru . tag('div', tag('span', get_orb($entry['group']), 'class="abcde"') . get_icon($entry['dungeon_name']), 'class="float"');
 						}
-						$row = $row . tag('td', implode($cells));
-					}else{
-						$row = $row . tag('td', '');
 					}
-				}
-				if($start_time <= time() && $start_end[$start_time] >= time()){
-					$tbl = $tbl . tag('tr', $row, 'class="highlight"');
-				}else{
-					$tbl = $tbl . tag('tr', $row);
 				}
 				$tbl_tr = $tbl_tr . tag('tr', tag('td', '', 'class="time-remain" data-timestart="' . (String) $start_time . '" data-timeend="' . (String) $start_end[$start_time] . '"') . tag('td', $row_tru));
 				$tbl_tu = $tbl_tu . tag('tr', tag('td', '', 'class="time-until" data-timestart="' . (String) $start_time . '" data-timeend="' . (String) $start_end[$start_time] . '"') . tag('td', $row_tru));
 			}
 		}
-		$server_out = $server_out . tag('table', $tbl, 'class="schedule"');
+		$server_out = $has_starter_groups ? $server_out . tag('div', tag('table', $tbl_t) . tag('table', $tbl_ts), 'class="schedule"') : $server_out . tag('div', tag('table', $tbl_t), 'class="schedule"');
+
 		$server_out = $server_out . tag('table', $tbl_tr . $tbl_tu, 'class="next"');
 		
 		$server_out = tag('div', $server_out, "class=\"$server\"");
@@ -244,8 +277,10 @@ function get_tables(){
 	return $out;
 }
 
+$miru_url = 'https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json?' . time();
+$local_url = './gd_override.json';
 echo get_buttons();
-echo get_tables();
+echo get_tables($miru_url, $local_url);
 
 ?>
 </body>
