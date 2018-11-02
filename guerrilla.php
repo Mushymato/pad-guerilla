@@ -173,7 +173,6 @@ function get_table_group_rows($dungeon_name, $d_entries, $group_list){
 	return $empty ? '' :tag('tr', $row);
 }
 function get_table_time_rows($start_time, $t_entries, $start_end, $group_list){
-	global $tform;
 	$row = tag('td', date($tform, $start_time), 'class="timestamp" data-timestamp="' . (String) $start_time . '"');
 	$empty = true;
 	foreach($group_list as $group){
@@ -233,7 +232,7 @@ function get_tables($url_na, $url_jp, $starter_group_dungeon = array()){
 					}
 				}
 				
-				if($value['start_timestamp'] >= $day[$value['server']]['start'] || $value['end_timestamp'] <= $day[$value['server']]['end']){
+				if($value['start_timestamp'] >= $day[$value['server']]['start'] && $value['end_timestamp'] <= $day[$value['server']]['end']){
 					$by_dungeon_group[$value['server']][$value['dungeon_name']][$value['group']][] = $value;
 				}
 				$by_time[$value['server']][$value['start_timestamp']][$value['group']][] = $value;
