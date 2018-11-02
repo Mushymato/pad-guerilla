@@ -196,7 +196,7 @@ function get_table_time_rows($start_time, $t_entries, $start_end, $group_list){
 		return tag('tr', $row);
 	}
 }
-function get_tables($url_na, $url_jp){
+function get_tables($url_na, $url_jp, $starter_group_dungeon = array()){
 	$by_dungeon_group = array('JP' => array(), 'NA' => array());
 	$by_time = array('JP' => array(), 'NA' => array());
 	$start_end = array();
@@ -211,13 +211,27 @@ function get_tables($url_na, $url_jp){
 		)
 	);
 	
-	//caching ver, untested
 	$gd = array();
 	$gd['NA'] = get_json($url_na)['items'];
 	$gd['JP'] = get_json($url_jp)['items'];
 	foreach($gd as $f => $array){
-		foreach($array as $value){
+		foreach($array as $value){			
 			if($value['server'] == $f){
+				
+				// special starter group sorting
+				// A/B/E are red starter, C is green, and D is blue
+				if(in_array($value['dungeon_name'], $starter_group_dungeon)){
+					if($value['group'] == 'A'){
+						$value['group'] = 'RED';
+					}else if($value['group'] == 'D'){
+						$value['group'] = 'BLUE';
+					}else if($value['group'] == 'C'){
+						$value['group'] = 'GREEN';
+					}else{
+						continue;
+					}
+				}
+				
 				if($value['start_timestamp'] >= $day[$value['server']]['start'] || $value['end_timestamp'] <= $day[$value['server']]['end']){
 					$by_dungeon_group[$value['server']][$value['dungeon_name']][$value['group']][] = $value;
 				}
@@ -280,7 +294,7 @@ function get_tables($url_na, $url_jp){
 $miru_url = 'https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json?' . time();
 $local_url = './gd_override.json';
 echo get_buttons();
-echo get_tables($miru_url, $local_url);
+echo get_tables($miru_url, $miru_url, array('キング大量発生！'));
 
 ?>
 </body>
