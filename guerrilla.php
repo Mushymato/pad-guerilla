@@ -144,7 +144,7 @@ function get_orb($orb){
 		return $orb;
 	}
 }
-function get_buttons(){
+function get_guerrilla_buttons(){
 	return "<p>TIMES ARE LOCAL TO YOUR BROWSER</p><button onclick=\"switchRegion();\">Switch Region: <span id=\"region\"></span></button><button onclick=\"pickMode('group');\">By Group</button><button onclick=\"pickMode('schedule');\">By Time</button><button onclick=\"pickMode('next');\">By Countdown</button>";
 }
 $tform = 'm/d H:i e';
@@ -203,7 +203,7 @@ function get_table_time_rows($start_time, $t_entries, $start_end, $group_list){
 	$is_starter_grouping: flag for using RGB starter group over player groups on the given server
 	$except_dungeons: dungeon that use the other grouping mode (i.e. if starter group flag is false, this dungeon uses RGB groups, if starter group flag is true, this dungeon uses player groups)
 */
-function get_tables($url_na, $url_jp, $is_starter_grouping = array('NA' => false, 'JP' => false), $except_dungeons = array()){
+function get_guerrilla_tables($url_na, $url_jp, $is_starter_grouping = array('NA' => false, 'JP' => false), $except_dungeons = array()){
 	$by_dungeon_group = array('JP' => array(), 'NA' => array());
 	$by_time = array('JP' => array(), 'NA' => array());
 	$start_end = array();
