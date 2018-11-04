@@ -196,6 +196,13 @@ function get_table_time_rows($start_time, $t_entries, $start_end, $group_list){
 		return tag('tr', $row);
 	}
 }
+
+/*
+	$url_na: data source for na schedule
+	$url_jp: data source for jp schedule
+	$is_starter_grouping: flag for using RGB starter group over player groups on the given server
+	$except_dungeons: dungeon that use the other grouping mode (i.e. if starter group flag is false, this dungeon uses RGB groups, if starter group flag is true, this dungeon uses player groups)
+*/
 function get_tables($url_na, $url_jp, $is_starter_grouping = array('NA' => false, 'JP' => false), $except_dungeons = array()){
 	$by_dungeon_group = array('JP' => array(), 'NA' => array());
 	$by_time = array('JP' => array(), 'NA' => array());
@@ -220,8 +227,9 @@ function get_tables($url_na, $url_jp, $is_starter_grouping = array('NA' => false
 				
 				// special starter group sorting
 				// A/B/E are red starter, C is green, and D is blue
-				if($is_starter_grouping[$value['server']] || 
-					in_array($value['dungeon_name'], $except_dungeons)){
+				$is_starter = $is_starter_grouping[$value['server']];
+				$except = in_array($value['dungeon_name'], $except_dungeons);
+				if(($is_starter && !$except) || (!$is_starter && $except)){
 					if($value['group'] == 'A'){
 						$value['group'] = 'RED';
 					}else if($value['group'] == 'D'){
