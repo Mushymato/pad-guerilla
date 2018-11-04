@@ -196,7 +196,7 @@ function get_table_time_rows($start_time, $t_entries, $start_end, $group_list){
 		return tag('tr', $row);
 	}
 }
-function get_tables($url_na, $url_jp, $starter_group_dungeon = array()){
+function get_tables($url_na, $url_jp, $is_starter_grouping = array('NA' => false, 'JP' => false), $except_dungeons = array()){
 	$by_dungeon_group = array('JP' => array(), 'NA' => array());
 	$by_time = array('JP' => array(), 'NA' => array());
 	$start_end = array();
@@ -220,7 +220,8 @@ function get_tables($url_na, $url_jp, $starter_group_dungeon = array()){
 				
 				// special starter group sorting
 				// A/B/E are red starter, C is green, and D is blue
-				if(in_array($value['dungeon_name'], $starter_group_dungeon)){
+				if($is_starter_grouping[$value['server']] || 
+					in_array($value['dungeon_name'], $except_dungeons)){
 					if($value['group'] == 'A'){
 						$value['group'] = 'RED';
 					}else if($value['group'] == 'D'){
@@ -294,7 +295,7 @@ function get_tables($url_na, $url_jp, $starter_group_dungeon = array()){
 $miru_url = 'https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json?' . time();
 $local_url = './gd_override.json';
 echo get_buttons();
-echo get_tables($miru_url, $miru_url, array('キング大量発生！'));
+echo get_tables($miru_url, $miru_url, array('NA' => false, 'JP' => true), array());
 
 ?>
 </body>
