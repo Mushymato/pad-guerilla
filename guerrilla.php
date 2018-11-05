@@ -303,7 +303,7 @@ function get_guerrilla_tables($url_na, $url_jp, $is_starter_grouping = array('NA
 $miru_url = 'https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json?' . time();
 $local_url = './gd_override.json';
 echo get_guerrilla_buttons();
-echo get_guerrilla_tables($miru_url, $miru_url, array('NA' => false, 'JP' => true), array());
+echo get_guerrilla_tables($miru_url, $miru_url);
 
 ?>
 </body>
