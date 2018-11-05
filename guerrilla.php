@@ -255,25 +255,32 @@ function get_guerrilla_tables($url_na, $url_jp, $is_starter_grouping = array('NA
 		$server_out = '';
 		$tbl_g = '<tr><td>Dungeon</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>';
 		$tbl_gs= '<tr><td>Dungeon</td><td>' . get_orb('RED') . '</td><td>' . get_orb('BLUE') . '</td><td>' . get_orb('GREEN') . '</td></tr>';
+		$has_player_groups = false;
 		$has_starter_groups = false;
 		foreach($by_dungeon_group[$server] as $dungeon_name => $d_entries){
-			$tbl_g = $tbl_g . get_table_group_rows($dungeon_name, $d_entries, ['A', 'B', 'C', 'D', 'E']);
+			$player_row = get_table_group_rows($dungeon_name, $d_entries, ['A', 'B', 'C', 'D', 'E']);
+			$has_player_groups = $has_player_groups || $player_row != '';
+			$tbl_g = $tbl_g . $player_row;
 			$starter_row = get_table_group_rows($dungeon_name, $d_entries, ['RED', 'BLUE', 'GREEN']);
 			$tbl_gs = $tbl_gs . $starter_row;
 			$has_starter_groups = $has_starter_groups || $starter_row != '';
 		}
-		$server_out = $has_starter_groups ? $server_out . tag('div', tag('table', $tbl_g) . tag('table', $tbl_gs), 'class="group"') : $server_out . tag('div', tag('table', $tbl_g), 'class="group"');
+		$group_div = $has_player_groups ? tag('table', $tbl_g) : '';
+		$group_div = $has_starter_groups ? $group_div . tag('table', $tbl_gs) : $group_div;
+		$server_out = $server_out . tag('div', $group_div, 'class="group"');
 		
 		ksort($by_time[$server]);
 		$tbl_t = '<tr><td>Time</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>';
 		$tbl_ts = '<tr><td>Time</td><td>' . get_orb('RED') . '</td><td>' . get_orb('BLUE') . '</td><td>' . get_orb('GREEN') . '</td></tr>';
+		$has_player_groups = false;
 		$has_starter_groups = false;
 		$tbl_tr = '<tr><td>Time Remaining</td><td>Dungeon</td></tr><tr class="tr-none"><td>--h --m</td><td>None</td></tr>';
 		$tbl_tu = '<tr><td>Time Until</td><td>Dungeon</td></tr><tr class="tu-none"><td>--h --m</td><td>None</td></tr>';
 		foreach($by_time[$server] as $start_time => $t_entries){
 			if($start_end[$start_time] >= time()){
-				
-				$tbl_t = $tbl_t . get_table_time_rows($start_time, $t_entries, $start_end, ['A', 'B', 'C', 'D', 'E']);
+				$player_row = get_table_time_rows($start_time, $t_entries, $start_end, ['A', 'B', 'C', 'D', 'E']);
+				$has_player_groups = $has_player_groups || $player_row != '';
+				$tbl_t = $tbl_t . $player_row;
 				$starter_row = get_table_time_rows($start_time, $t_entries, $start_end, ['RED', 'BLUE', 'GREEN']);
 				$tbl_ts = $tbl_ts . $starter_row;
 				$has_starter_groups = $has_starter_groups || $starter_row != '';
@@ -290,7 +297,10 @@ function get_guerrilla_tables($url_na, $url_jp, $is_starter_grouping = array('NA
 				$tbl_tu = $tbl_tu . tag('tr', tag('td', '', 'class="time-until" data-timestart="' . (String) $start_time . '" data-timeend="' . (String) $start_end[$start_time] . '"') . tag('td', $row_tru));
 			}
 		}
-		$server_out = $has_starter_groups ? $server_out . tag('div', tag('table', $tbl_t) . tag('table', $tbl_ts), 'class="schedule"') : $server_out . tag('div', tag('table', $tbl_t), 'class="schedule"');
+		
+		$group_div = $has_player_groups ? tag('table', $tbl_t) : '';
+		$group_div = $has_starter_groups ? $group_div . tag('table', $tbl_ts) : $group_div;
+		$server_out = $server_out . tag('div', $group_div, 'class="schedule"');
 
 		$server_out = $server_out . tag('table', $tbl_tr . $tbl_tu, 'class="next"');
 		
