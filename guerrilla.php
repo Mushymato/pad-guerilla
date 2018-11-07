@@ -198,8 +198,8 @@ function get_table_time_rows($start_time, $t_entries, $start_end, $group_list){
 }
 
 /*
-	$url_na: data source for na schedule
-	$url_jp: data source for jp schedule
+	$url_na: data source for NA schedule
+	$url_jp: data source for JP schedule
 	$is_starter_grouping: flag for using RGB starter group over player groups on the given server
 	$except_dungeons: dungeon that use the other grouping mode (i.e. if starter group flag is false, this dungeon uses RGB groups, if starter group flag is true, this dungeon uses player groups)
 */
@@ -225,8 +225,9 @@ function get_guerrilla_tables($url_na, $url_jp, $is_starter_grouping = array('NA
 		foreach($array as $value){			
 			if($value['server'] == $f){
 				
-				// special starter group sorting
+				// starter group sorting
 				// A/B/E are red starter, C is green, and D is blue
+				// when in starter group mode, B/E data is discarded
 				$is_starter = $is_starter_grouping[$value['server']];
 				$except = in_array($value['dungeon_name'], $except_dungeons);
 				if(($is_starter && !$except) || (!$is_starter && $except)){
@@ -236,7 +237,7 @@ function get_guerrilla_tables($url_na, $url_jp, $is_starter_grouping = array('NA
 						$value['group'] = 'BLUE';
 					}else if($value['group'] == 'C'){
 						$value['group'] = 'GREEN';
-					}else{
+					}else if($value['group'] == 'B' || $value['group'] == 'E'){
 						continue;
 					}
 				}
@@ -313,7 +314,7 @@ function get_guerrilla_tables($url_na, $url_jp, $is_starter_grouping = array('NA
 $miru_url = 'https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json?' . time();
 $local_url = './gd_override.json';
 echo get_guerrilla_buttons();
-echo get_guerrilla_tables($miru_url, $miru_url);
+echo get_guerrilla_tables($miru_url, $miru_url, array('NA' => false, 'JP' => true));
 
 ?>
 </body>
