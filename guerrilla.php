@@ -132,7 +132,7 @@ function get_icon($dungeon_name){
 	}
 	global $icon;
 	$icon_url = $icon['iconURL'] . $icon[$dungeon_name]['i'];
-	$dungeon_url = $icon['dungeonURL'] . $icon[$dungeon_name]['i'];
+	$dungeon_url = $icon['dungeonURL'] . $icon[$dungeon_name]['d'];
 	return tag('a', "<img src=\"$icon_url\" class=\"dungeon-icon\">", "href=\"$dungeon_url\" title=\"$dungeon_name\"");
 }
 function get_orb($orb){
@@ -173,6 +173,7 @@ function get_table_group_rows($dungeon_name, $d_entries, $group_list){
 	return $empty ? '' :tag('tr', $row);
 }
 function get_table_time_rows($start_time, $t_entries, $start_end, $group_list){
+	global $tform;
 	$row = tag('td', date($tform, $start_time), 'class="timestamp" data-timestamp="' . (String) $start_time . '"');
 	$empty = true;
 	foreach($group_list as $group){
