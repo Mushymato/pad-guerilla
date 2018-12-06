@@ -1,5 +1,10 @@
 function fmtDate(d){
-	return moment(d * 1000).tz(window.localStorage.getItem('timezone')).format('M/DD HH:mm z');
+	var tizo = window.localStorage.getItem('timezone');
+	if(tizo === 'Local'){
+		return moment(d * 1000).format('M/DD HH:mm z');
+	}else{
+		return moment(d * 1000).tz(tizo).format('M/DD HH:mm z');
+	}
 }
 function fmtCd(d){
 	var hours = Math.floor((d % (60 * 60 * 24)) / (60 * 60));
@@ -31,7 +36,8 @@ function switchRegion(){
 }
 function switchTimezone(){
 	if(window.localStorage.getItem('timezone') === 'Asia/Tokyo'){
-		window.localStorage.setItem('timezone', moment.tz.guess());
+		//window.localStorage.setItem('timezone', moment.tz.guess());
+		window.localStorage.setItem('timezone', 'Local');
 	}else{
 		window.localStorage.setItem('timezone', 'Asia/Tokyo');
 	}
@@ -42,7 +48,7 @@ function pickMode(mode){
 	refreshSetting();
 }
 function refreshTime(){
-	$('#timezone').html(moment.tz(window.localStorage.getItem('timezone')).format('z'));
+	$('#timezone').html(window.localStorage.getItem('timezone'));
 	$(".timestamp").each(function(index) {
 		$(this).html(fmtDate(parseInt($(this).attr('data-timestamp'))));
 	});
@@ -93,7 +99,8 @@ window.onload=function(){
 		window.localStorage.setItem('mode', 'group');
 	}
 	if(window.localStorage.getItem('timezone') === null){
-		window.localStorage.setItem('timezone', moment.tz.guess());
+		//window.localStorage.setItem('timezone', moment.tz.guess());
+		window.localStorage.setItem('timezone', 'Local');
 	}
 	refreshSetting();
 	refreshTime();
