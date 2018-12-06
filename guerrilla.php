@@ -2,95 +2,8 @@
 <title>Guerilla Dungeons</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-function fmtDate(d){
-	return moment(d * 1000).format('M/DD HH:mm');
-}
-function fmtCd(d){
-	var hours = Math.floor((d % (60 * 60 * 24)) / (60 * 60));
-	var minutes = Math.floor((d % (60 * 60)) / (60));
-	return hours + 'h ' + minutes + 'm';
-}
-function refreshSetting() {
-	$('#region').html(window.localStorage.getItem('region'));
-	if(window.localStorage.getItem('region') === 'NA'){
-		$('.NA').css('display', 'block');
-		$('.JP').css('display', 'none');
-	}else{
-		$('.NA').css('display', 'none');
-		$('.JP').css('display', 'block');
-	}
-	var modes = ['.group', '.schedule', '.next'];
-	for (var m of modes){
-		$(m).css('display', 'none');
-	}
-	$('.'+window.localStorage.getItem('mode')).css('display', 'table');
-}
-function switchRegion(){
-	if(window.localStorage.getItem('region') === 'NA'){
-		window.localStorage.setItem('region', 'JP');
-	}else{
-		window.localStorage.setItem('region', 'NA');
-	}
-	refreshSetting();
-}
-function pickMode(mode){
-	window.localStorage.setItem('mode', mode);
-	refreshSetting();
-}
-function toLocalTime(){
-	$(".timestamp").each(function(index) {
-		$(this).html(fmtDate(parseInt($(this).attr('data-timestamp'))));
-	});
-}
-function updateTimediff(){
-	var now = moment().unix();
-	for(var region of ['NA', 'JP']){
-		var found = false;
-		$('.' + region + ' .time-remain').each(function(index) {
-			var ts = parseInt($(this).attr('data-timestart'));
-			var te = parseInt($(this).attr('data-timeend'));
-			if(ts <= now && te >= now){
-				$(this).html(fmtCd(te - now));
-				$(this).parent().css('display', 'table-row');
-				found = true;
-			}else{
-				$(this).parent().css('display', 'none');
-			}
-		});
-		if(found){
-			$('.' + region + ' .tr-none').css('display', 'none');
-		}else{
-			$('.' + region + ' .tr-none').css('display', 'table-row');
-		}
-		found = false;
-		$('.' + region + ' .time-until').each(function(index) {
-			var ts = parseInt($(this).attr('data-timestart'));
-			if(ts > now && !found){
-				$(this).html(fmtCd(ts - now));
-				$(this).parent().css('display', 'table-row');
-				found = true;
-			}else{
-				$(this).parent().css('display', 'none');
-			}
-		});
-		if(found){
-			$('.' + region + ' .tu-none').css('display', 'none');
-		}else{
-			$('.' + region + ' .tu-none').css('display', 'table-row');
-		}
-	}
-}
-window.onload=function(){
-	refreshSetting();
-	toLocalTime();
-	updateTimediff();
-	setTimeout(function(){
-		updateTimediff();
-		setInterval(updateTimediff, 60000);
-	}, 60000 - moment().millisecond());
-}
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.23/moment-timezone-with-data.min.js" type="text/javascript"></script>
+<script src="./guerrilla.js" type="text/javascript"></script>
 <style>
 .highlight{
 	background-color:powderblue;
@@ -114,7 +27,10 @@ window.onload=function(){
 
 </head>
 <body>
-<?php
+<div>
+<button onclick="switchTimezone();">Timezone: <span id="timezone"></span></button>
+<p>TIMES ARE LOCAL TO YOUR BROWSER</p><button onclick="switchRegion();">Switch Region: <span id="region"></span></button><button onclick="pickMode('group');">By Group</button><button onclick="pickMode('schedule');">By Time</button><button onclick="pickMode('next');">By Countdown</button>
+<?php 
 date_default_timezone_set('UTC');
 ini_set('allow_url_fopen', 1);
 
@@ -143,9 +59,6 @@ function get_orb($orb){
 	}else{
 		return $orb;
 	}
-}
-function get_guerrilla_buttons(){
-	return "<p>TIMES ARE LOCAL TO YOUR BROWSER</p><button onclick=\"switchRegion();\">Switch Region: <span id=\"region\"></span></button><button onclick=\"pickMode('group');\">By Group</button><button onclick=\"pickMode('schedule');\">By Time</button><button onclick=\"pickMode('next');\">By Countdown</button>";
 }
 $tform = 'm/d H:i e';
 function get_table_group_rows($dungeon_name, $d_entries, $group_list){
@@ -223,7 +136,7 @@ function get_guerrilla_tables($url_na, $url_jp, $is_starter_grouping = array('NA
 	$gd['NA'] = get_json($url_na)['items'];
 	$gd['JP'] = get_json($url_jp)['items'];
 	foreach($gd as $f => $array){
-		foreach($array as $value){			
+		foreach($array as $value){
 			if($value['server'] == $f){
 				
 				// starter group sorting
@@ -311,12 +224,9 @@ function get_guerrilla_tables($url_na, $url_jp, $is_starter_grouping = array('NA
 	}
 	return $out;
 }
-
 $miru_url = 'https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json?' . time();
 $local_url = './gd_override.json';
-echo get_guerrilla_buttons();
 echo get_guerrilla_tables($miru_url, $miru_url, array('NA' => false, 'JP' => true));
-
 ?>
 </body>
 </html>
