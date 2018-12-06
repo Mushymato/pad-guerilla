@@ -42,7 +42,7 @@ function pickMode(mode){
 	refreshSetting();
 }
 function refreshTime(){
-	$('#timezone').html(window.localStorage.getItem('timezone'));
+	$('#timezone').html(moment.tz(window.localStorage.getItem('timezone')).format('z'));
 	$(".timestamp").each(function(index) {
 		$(this).html(fmtDate(parseInt($(this).attr('data-timestamp'))));
 	});
@@ -86,7 +86,6 @@ function updateTimediff(){
 	}
 }
 window.onload=function(){
-	window.localStorage.clear();
 	if(window.localStorage.getItem('region') === null){
 		window.localStorage.setItem('region', 'JP');
 	}

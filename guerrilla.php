@@ -28,8 +28,11 @@
 </head>
 <body>
 <div>
+
 <button onclick="switchTimezone();">Timezone: <span id="timezone"></span></button>
-<p>TIMES ARE LOCAL TO YOUR BROWSER</p><button onclick="switchRegion();">Switch Region: <span id="region"></span></button><button onclick="pickMode('group');">By Group</button><button onclick="pickMode('schedule');">By Time</button><button onclick="pickMode('next');">By Countdown</button>
+
+<button onclick="switchRegion();">Switch Region: <span id="region"></span></button><button onclick="pickMode('group');">By Group</button><button onclick="pickMode('schedule');">By Time</button><button onclick="pickMode('next');">By Countdown</button>
+
 <?php 
 date_default_timezone_set('UTC');
 ini_set('allow_url_fopen', 1);
