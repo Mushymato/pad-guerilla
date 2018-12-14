@@ -1,7 +1,7 @@
 function fmtDate(d){
 	var tizo = window.localStorage.getItem('timezone');
 	if(tizo === 'Local'){
-		return moment(d * 1000).format('M/DD HH:mm z');
+		return moment(d * 1000).format('M/DD HH:mm');
 	}else{
 		return moment(d * 1000).tz(tizo).format('M/DD HH:mm z');
 	}
