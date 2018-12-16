@@ -51,7 +51,7 @@ function get_icon($dungeon_name){
 	}
 	global $icon;
 	$icon_url = $icon['iconURL'] . $icon[$dungeon_name]['i'];
-	$dungeon_url = $icon['dungeonURL'] . $icon[$dungeon_name]['d'];
+	$dungeon_url = $icon[$dungeon_name]['d'] == '' ? '#' : $icon['dungeonURL'] . $icon[$dungeon_name]['d'];
 	return tag('a', "<img src=\"$icon_url\" class=\"dungeon-icon\">", "href=\"$dungeon_url\" title=\"$dungeon_name\"");
 }
 function get_orb($orb){

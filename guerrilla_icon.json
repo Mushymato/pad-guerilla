@@ -1,5 +1,5 @@
 {
-	"iconURL" : "http://puzzledragonx.com/en/img/book/",
+	"iconURL" : "/wp-content/uploads/pad-portrait/",
 	"dungeonURL" : "http://puzzledragonx.com/en/mission.asp?m=",
 	
 	"Extreme King Metal Dragon!" : {"i" : "1324.png", "d" : "1043"},
@@ -30,7 +30,8 @@
 	"Amnel Descended!" : {"i" : "3577.png", "d" : "3260"},
 	"Ena Descended!" : {"i" : "3578.png", "d" : "3261"},
 	
-	"PAD Island REMDra Descended!" : {"i" : "3866.png", "d" : ""},
+	"PAD Island REMDra Descended!" : {"i" : "3866.png", "d" : "3681"},
+	"REMDra Descended!" : {"i" : "3528.png", "d" : ""},
 	
 	"超絶メタドラ 降臨！" : {"i" : "1324.png", "d" : "1043"},
 	"希石の神殿" : {"i" : "4464.png", "d" : "3611"},
@@ -60,5 +61,6 @@
 	"アムネル 降臨！" : {"i" : "3577.png", "d" : "3260"},
 	"エナ 降臨！" : {"i" : "3578.png", "d" : "3261"},
 
-	"夏のガチャドラ 降臨！" : {"i" : "3866.png", "d" : ""}
+	"夏のガチャドラ 降臨！" : {"i" : "3866.png", "d" : "3681"}
+	"ガチャドラ 降臨！" : {"i" : "3528.png", "d" : ""}
 }
