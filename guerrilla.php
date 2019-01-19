@@ -227,7 +227,7 @@ function get_guerrilla_tables($url_na, $url_jp, $is_starter_grouping = array('NA
 	}
 	return $out;
 }
-$miru_url = 'https://storage.googleapis.com/mirubot/paddata/merged/guerrilla_data.json?' . time();
+$miru_url = 'https://storage.googleapis.com/mirubot-data/paddata/merged/guerrilla_data.json?' . time();
 $local_url = './gd_override.json';
 echo get_guerrilla_tables($miru_url, $miru_url, array('NA' => false, 'JP' => true));
 ?>
