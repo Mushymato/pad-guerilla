@@ -1,5 +1,5 @@
 <html>
-<title>Guerilla Dungeons</title>
+<title>Guerrilla Dungeons</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.23/moment-timezone-with-data.min.js" type="text/javascript"></script>
@@ -227,7 +227,7 @@ function get_guerrilla_tables($url_na, $url_jp, $is_starter_grouping = array('NA
 	}
 	return $out;
 }
-$miru_url = 'https://storage.googleapis.com/mirubot-data/paddata/merged/guerrilla_data.json?' . time();
+$miru_url = 'https://storage.googleapis.com/mirubot/protic/paddata/merged/guerrilla_data.json?' . time();
 $local_url = './gd_override.json';
 echo get_guerrilla_tables($miru_url, $miru_url, array('NA' => false, 'JP' => true));
 ?>
