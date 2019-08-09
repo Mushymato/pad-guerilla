@@ -1,68 +1,244 @@
 {
-	"iconURL" : "/wp-content/uploads/pad-portrait/",
-	"dungeonURL" : "http://puzzledragonx.com/en/mission.asp?m=",
-	
-	"Extreme King Metal Dragon!" : {"i" : "1324.png", "d" : "1043"},
-	"Gem Temple" : {"i" : "4464.png", "d" : "3611"},
-	"Descended Carnival (Legend)" : {"i" : "1945.png", "d" : "1439"},
-	"Reincarnation Zone" : {"i" : "162.png", "d" : "2900"},
-	"Spirit Jewel Rush!" : {"i" : "1329.png", "d" : "2500"},
-	"Tan Infestation!" : {"i" : "2725.png", "d" : "2084"},
-	"PreDRA Infestation!" : {"i" : "2572.png", "d" : "1925"},
-	"Ruins of the Star Vault" : {"i" : "265.png", "d" : "730"},
-	"Star Treasure Thieves' Den" : {"i" : "479.png", "d" : "1623"},
-	"Evo Monster Infestation!" : {"i" : "1176.png", "d" : "828"},
-	"King Dragon Infestation!" : {"i" : "430.png", "d" : "1427"},
-	"TAMADRA Infestation!" : {"i" : "797.png", "d" : "830"},
-	"Rare Monster Infestation!" : {"i" : "752.png", "d" : "1307"},
-	"Golden Mound-Tricolor" : {"i" : "565.png", "d" : "1039"},
-	"Hephaestus Dragon Descended!" : {"i" : "2716.png", "d" : "2106"},
-	"Noah Dragon Descended!" : {"i" : "2717.png", "d" : "2107"},
-	"Gaia Dragon Descended!" : {"i" : "2718.png", "d" : "2104"},
-	"Zeus Dragon Descended!" : {"i" : "2719.png", "d" : "2098"},
-	"Hera Dragon Descended!" : {"i" : "2720.png", "d" : "2151"},
-	"Drahklist Descended!-★6 or lower Enhanced" : {"i" : "2939.png", "d" : "2881"},
-	"Whaledor Descended!-★6 or lower Enhanced" : {"i" : "2940.png", "d" : "2882"},
-	"Raguel Descended!-★6 or lower Enhanced" : {"i" : "2941.png", "d" : "2883"},
-	"Diara Descended!" : {"i" : "3574.png", "d" : "3257"},
-	"Grato Descended!" : {"i" : "3575.png", "d" : "3258"},
-	"Wallace Descended!" : {"i" : "3576.png", "d" : "3259"},
-	"Amnel Descended!" : {"i" : "3577.png", "d" : "3260"},
-	"Ena Descended!" : {"i" : "3578.png", "d" : "3261"},
-	
-	"PAD Island REMDra Descended!" : {"i" : "3866.png", "d" : "3681"},
-	"REMDra Descended!" : {"i" : "3528.png", "d" : ""},
-	"Super + Points Cave" : {"i" : "1777.png", "d" : ""},
-	
-	"超絶メタドラ 降臨！" : {"i" : "1324.png", "d" : "1043"},
-	"希石の神殿" : {"i" : "4464.png", "d" : "3611"},
-	"降臨カーニバル（地獄級）" : {"i" : "1945.png", "d" : "1439"},
-	"転生の間" : {"i" : "162.png", "d" : "2900"},
-	"精霊の宝玉ラッシュ！" : {"i" : "1329.png", "d" : "2500"},
-	"タン大量発生！" : {"i" : "2725.png", "d" : "2084"},
-	"ぷれドラ大量発生！" : {"i" : "2572.png", "d" : "1925"},
-	"星宝の遺跡" : {"i" : "265.png", "d" : "730"},
-	"星宝の魔窟" : {"i" : "479.png", "d" : "1623"},
-	"進化用モンスター大量発生！" : {"i" : "1176.png", "d" : "828"},
-	"キング大量発生！" : {"i" : "430.png", "d" : "1427"},
-	"たまドラ大量発生！" : {"i" : "797.png", "d" : "830"},
-	"レアキャラ大量発生！" : {"i" : "752.png", "d" : "1307"},
-	"金色の築山【3色限定】" : {"i" : "565.png", "d" : "1039"},
-	"ヘパイストス＝ドラゴン 降臨！" : {"i" : "2716.png", "d" : "2106"},
-	"ノア＝ドラゴン 降臨！" : {"i" : "2717.png", "d" : "2107"},
-	"ガイア＝ドラゴン 降臨！" : {"i" : "2718.png", "d" : "2104"},
-	"ゼウス＝ドラゴン 降臨！" : {"i" : "2719.png", "d" : "2098"},
-	"ヘラ＝ドラゴン 降臨！" : {"i" : "2720.png", "d" : "2151"},
-	"ドラクリスト 降臨！【★6以下強化】" : {"i" : "2939.png", "d" : "2881"},
-	"ウェルドール 降臨！【★6以下強化】" : {"i" : "2940.png", "d" : "2882"},
-	"ラグウェル 降臨！【★6以下強化】" : {"i" : "2941.png", "d" : "2883"},
-	"ディアラ 降臨！" : {"i" : "3574.png", "d" : "3257"},
-	"グラト 降臨！" : {"i" : "3575.png", "d" : "3258"},
-	"ウォレス 降臨！" : {"i" : "3576.png", "d" : "3259"},
-	"アムネル 降臨！" : {"i" : "3577.png", "d" : "3260"},
-	"エナ 降臨！" : {"i" : "3578.png", "d" : "3261"},
-
-	"夏のガチャドラ 降臨！" : {"i" : "3866.png", "d" : "3681"},
-	"ガチャドラ 降臨！" : {"i" : "3528.png", "d" : ""},
-	"超＋ポイントの洞窟" : {"i" : "1777.png", "d" : ""}
+	"iconURL": "/wp-content/uploads/pad-portrait/",
+	"dungeonURL": "http://puzzledragonx.com/en/mission.asp?m=",
+	"Extreme King Metal Dragon!": {
+		"i": "1324.png",
+		"d": "1043"
+	},
+	"Gem Temple": {
+		"i": "4464.png",
+		"d": "3611"
+	},
+	"Descended Carnival (Legend)": {
+		"i": "1945.png",
+		"d": "1439"
+	},
+	"Reincarnation Zone": {
+		"i": "162.png",
+		"d": "2900"
+	},
+	"Spirit Jewel Rush!": {
+		"i": "1329.png",
+		"d": "2500"
+	},
+	"Tan Infestation!": {
+		"i": "2725.png",
+		"d": "2084"
+	},
+	"PreDRA Infestation!": {
+		"i": "2572.png",
+		"d": "1925"
+	},
+	"Ruins of the Star Vault": {
+		"i": "265.png",
+		"d": "730"
+	},
+	"Star Treasure Thieves' Den": {
+		"i": "479.png",
+		"d": "1623"
+	},
+	"Evo Monster Infestation!": {
+		"i": "1176.png",
+		"d": "828"
+	},
+	"King Dragon Infestation!": {
+		"i": "430.png",
+		"d": "1427"
+	},
+	"TAMADRA Infestation!": {
+		"i": "797.png",
+		"d": "830"
+	},
+	"Rare Monster Infestation!": {
+		"i": "752.png",
+		"d": "1307"
+	},
+	"Golden Mound-Tricolor": {
+		"i": "565.png",
+		"d": "1039"
+	},
+	"Hephaestus Dragon Descended!": {
+		"i": "2716.png",
+		"d": "2106"
+	},
+	"Noah Dragon Descended!": {
+		"i": "2717.png",
+		"d": "2107"
+	},
+	"Gaia Dragon Descended!": {
+		"i": "2718.png",
+		"d": "2104"
+	},
+	"Zeus Dragon Descended!": {
+		"i": "2719.png",
+		"d": "2098"
+	},
+	"Hera Dragon Descended!": {
+		"i": "2720.png",
+		"d": "2151"
+	},
+	"Drahklist Descended!-★6 or lower Enhanced": {
+		"i": "2939.png",
+		"d": "2881"
+	},
+	"Whaledor Descended!-★6 or lower Enhanced": {
+		"i": "2940.png",
+		"d": "2882"
+	},
+	"Raguel Descended!-★6 or lower Enhanced": {
+		"i": "2941.png",
+		"d": "2883"
+	},
+	"Diara Descended!": {
+		"i": "3574.png",
+		"d": "3257"
+	},
+	"Grato Descended!": {
+		"i": "3575.png",
+		"d": "3258"
+	},
+	"Wallace Descended!": {
+		"i": "3576.png",
+		"d": "3259"
+	},
+	"Amnel Descended!": {
+		"i": "3577.png",
+		"d": "3260"
+	},
+	"Ena Descended!": {
+		"i": "3578.png",
+		"d": "3261"
+	},
+	"PAD Island REMDra Descended!": {
+		"i": "3866.png",
+		"d": "3681"
+	},
+	"REMDra Descended!": {
+		"i": "3528.png",
+		"d": ""
+	},
+	"Super + Points Cave": {
+		"i": "1777.png",
+		"d": "3820"
+	},
+	"超絶メタドラ 降臨！": {
+		"i": "1324.png",
+		"d": "1043"
+	},
+	"希石の神殿": {
+		"i": "4464.png",
+		"d": "3611"
+	},
+	"降臨カーニバル（地獄級）": {
+		"i": "1945.png",
+		"d": "1439"
+	},
+	"転生の間": {
+		"i": "162.png",
+		"d": "2900"
+	},
+	"精霊の宝玉ラッシュ！": {
+		"i": "1329.png",
+		"d": "2500"
+	},
+	"タン大量発生！": {
+		"i": "2725.png",
+		"d": "2084"
+	},
+	"ぷれドラ大量発生！": {
+		"i": "2572.png",
+		"d": "1925"
+	},
+	"星宝の遺跡": {
+		"i": "265.png",
+		"d": "730"
+	},
+	"星宝の魔窟": {
+		"i": "479.png",
+		"d": "1623"
+	},
+	"進化用モンスター大量発生！": {
+		"i": "1176.png",
+		"d": "828"
+	},
+	"キング大量発生！": {
+		"i": "430.png",
+		"d": "1427"
+	},
+	"たまドラ大量発生！": {
+		"i": "797.png",
+		"d": "830"
+	},
+	"レアキャラ大量発生！": {
+		"i": "752.png",
+		"d": "1307"
+	},
+	"金色の築山【3色限定】": {
+		"i": "565.png",
+		"d": "1039"
+	},
+	"ヘパイストス＝ドラゴン 降臨！": {
+		"i": "2716.png",
+		"d": "2106"
+	},
+	"ノア＝ドラゴン 降臨！": {
+		"i": "2717.png",
+		"d": "2107"
+	},
+	"ガイア＝ドラゴン 降臨！": {
+		"i": "2718.png",
+		"d": "2104"
+	},
+	"ゼウス＝ドラゴン 降臨！": {
+		"i": "2719.png",
+		"d": "2098"
+	},
+	"ヘラ＝ドラゴン 降臨！": {
+		"i": "2720.png",
+		"d": "2151"
+	},
+	"ドラクリスト 降臨！【★6以下強化】": {
+		"i": "2939.png",
+		"d": "2881"
+	},
+	"ウェルドール 降臨！【★6以下強化】": {
+		"i": "2940.png",
+		"d": "2882"
+	},
+	"ラグウェル 降臨！【★6以下強化】": {
+		"i": "2941.png",
+		"d": "2883"
+	},
+	"ディアラ 降臨！": {
+		"i": "3574.png",
+		"d": "3257"
+	},
+	"グラト 降臨！": {
+		"i": "3575.png",
+		"d": "3258"
+	},
+	"ウォレス 降臨！": {
+		"i": "3576.png",
+		"d": "3259"
+	},
+	"アムネル 降臨！": {
+		"i": "3577.png",
+		"d": "3260"
+	},
+	"エナ 降臨！": {
+		"i": "3578.png",
+		"d": "3261"
+	},
+	"夏のガチャドラ 降臨！": {
+		"i": "3866.png",
+		"d": "3681"
+	},
+	"ガチャドラ 降臨！": {
+		"i": "3528.png",
+		"d": ""
+	},
+	"超＋ポイントの洞窟": {
+		"i": "1777.png",
+		"d": "3820"
+	}
 }
